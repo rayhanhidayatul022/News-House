@@ -1,0 +1,29 @@
+.listening-mission { background: #071d42; }
+.listening-mission__stage { position: relative; width: min(100vw, 177.7344svh); aspect-ratio: 1365 / 768; overflow: hidden; background: url("../assets/images/listening-mission/background.png") center / cover no-repeat; box-shadow: 0 0 70px #020d20cf; }
+.listening-mission__stage::after { display: none; }
+.listening-mission__home, .listening-mission__back { z-index: 12; }
+.listening-mission__questions { position: absolute; z-index: 3; top: 21%; right: 3%; width: 49%; height: 67%; object-fit: contain; object-position: center top; filter: drop-shadow(0 .65vw .55vw #04132f78); }
+.listening-mission__upload { position: absolute; z-index: 7; right: .7%; bottom: 8%; display: block; width: 13.5%; height: 34%; transition: transform .16s ease, filter .16s ease; }
+.listening-mission__upload img { display: block; width: 100%; height: 100%; object-fit: contain; pointer-events: none; filter: drop-shadow(0 .55vw .45vw #07152f8a); }
+.listening-mission__upload:hover { filter: brightness(1.08) drop-shadow(0 0 .65vw #ffe24a); transform: translateY(-2%) scale(1.025) rotate(.5deg); }
+.listening-mission__upload:active { transform: translateY(1%) scale(.98); }
+.listening-mission__upload:focus-visible { border-radius: 1.4vw; outline: .35vw solid #fff; outline-offset: .12vw; }
+.listening-mission__complete { position: absolute; z-index: 6; right: 16.5%; bottom: 1.1%; width: 29%; height: 11.5%; padding: 0; border: 0; background: transparent; cursor: pointer; transition: transform .16s ease, filter .16s ease; }
+.listening-mission__complete img { display: block; width: 100%; height: 100%; object-fit: contain; pointer-events: none; filter: drop-shadow(0 .45vw .35vw #31115380); }
+.listening-mission__complete:hover { filter: brightness(1.08) drop-shadow(0 0 .6vw #ffe344); transform: translateY(-4%) scale(1.025); }
+.listening-mission__complete:active { transform: translateY(2%) scale(.98); }
+.listening-mission__complete:focus-visible { border-radius: 999px; outline: .35vw solid #fff; outline-offset: .12vw; }
+.listening-mission__audio-control { position: absolute; z-index: 6; left: 27.5%; top: 39%; display: grid; justify-items: center; gap: .5vw; width: 13%; padding: 0; border: 0; background: transparent; color: #fff; cursor: pointer; transition: transform .16s ease, filter .16s ease; }
+.listening-mission__audio-control:hover { filter: brightness(1.1) drop-shadow(0 0 .75vw #20d8ff); transform: translateY(-3%) scale(1.035); }
+.listening-mission__audio-control:active { transform: scale(.97); }
+.listening-mission__audio-control:focus-visible { border-radius: 1.2vw; outline: .35vw solid #fff; outline-offset: .2vw; }
+.listening-mission__audio-disc { position: relative; display: grid; place-items: center; width: 7.8vw; max-width: 13.5svh; aspect-ratio: 1; border: .42vw solid #fff8; border-radius: 50%; background: linear-gradient(145deg, #ffe838, #ff9a00); box-shadow: 0 .55vw 0 #7d3600, 0 .8vw 1vw #021128a8, inset 0 .3vw .25vw #fff9; }
+.listening-mission__play-icon { width: 0; height: 0; margin-left: 9%; border-top: 1.55vw solid transparent; border-bottom: 1.55vw solid transparent; border-left: 2.35vw solid #06174b; filter: drop-shadow(0 .18vw .1vw #fff5); }
+.listening-mission__pause-icon { display: none; gap: .65vw; }
+.listening-mission__pause-icon i { display: block; width: 1vw; height: 3.1vw; border-radius: .25vw; background: #06174b; box-shadow: inset 0 .15vw .12vw #fff5; }
+.listening-mission__audio-label { padding: .45vw .85vw; border: .22vw solid #ffde43; border-radius: 999px; background: linear-gradient(#0755c7, #062d84); box-shadow: 0 .3vw 0 #031b52, 0 .5vw .55vw #0211289c; font: 900 clamp(.7rem, 1.35vw, 1.35rem)/1 system-ui, sans-serif; letter-spacing: .02em; text-shadow: 0 .15vw .1vw #020d30; white-space: nowrap; }
+.listening-mission__audio-control.is-playing .listening-mission__play-icon { display: none; }
+.listening-mission__audio-control.is-playing .listening-mission__pause-icon { display: flex; }
+.listening-mission__audio-control.is-playing .listening-mission__audio-label { font-size: 0; }
+.listening-mission__audio-control.is-playing .listening-mission__audio-label::before { content: "JEDA AUDIO"; font-size: clamp(.7rem, 1.35vw, 1.35rem); }
+@media (prefers-reduced-motion: reduce) { .listening-mission__upload, .listening-mission__complete, .listening-mission__audio-control { transition: none; } }

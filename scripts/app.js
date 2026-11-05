@@ -29,7 +29,7 @@ const pageMarkup = await Promise.all([
   fetch("pages/mission-room.html?v=20261102-2").then((response) => response.text()),
   fetch("pages/reading-mission.html?v=20261102-2").then((response) => response.text()),
   fetch("pages/observation-mission.html?v=20261105-2").then((response) => response.text()),
-  fetch("pages/listening-mission.html?v=20261102-1").then((response) => response.text())
+  fetch("pages/listening-mission.html?v=20261105-1").then((response) => response.text())
 ]);
 app.innerHTML = pageMarkup.join("");
 
@@ -104,6 +104,12 @@ const observationMission = document.querySelector("#observation-mission");
 const observationSuccess = observationMission.querySelector("#observation-success");
 const completeObservationMission = observationMission.querySelector("#complete-observation-mission");
 const continueObservationMission = observationSuccess.querySelector(".observation-success__continue");
+const listeningMission = document.querySelector("#listening-mission");
+const listeningMissionAudio = listeningMission.querySelector("#listening-mission-audio");
+const listeningMissionAudioControl = listeningMission.querySelector("#listening-mission-audio-control");
+const listeningSuccess = listeningMission.querySelector("#listening-success");
+const completeListeningMission = listeningMission.querySelector("#complete-listening-mission");
+const continueListeningMission = listeningSuccess.querySelector(".listening-success__continue");
 
 const transitionOverlay = document.createElement("div");
 transitionOverlay.className = "scene-transition";
@@ -157,6 +163,7 @@ function hideMissionDetailPages() {
   observationDissectionVideo.pause();
   listeningDissection.pause();
   observationMissionVideo.pause();
+  listeningMissionAudio.pause();
   observationDissectionRoom.hidden = true;
   observationExpressionRoom.hidden = true;
   observationRevisionRoom.hidden = true;
@@ -598,6 +605,36 @@ continueObservationMission.addEventListener("click", () => {
   observationSuccess.hidden = true;
   changeScene(showMissionRoom);
 });
+function syncListeningMissionAudio() {
+  const isPlaying = !listeningMissionAudio.paused && !listeningMissionAudio.ended;
+  listeningMissionAudioControl.classList.toggle("is-playing", isPlaying);
+  listeningMissionAudioControl.setAttribute("aria-pressed", String(isPlaying));
+  listeningMissionAudioControl.setAttribute("aria-label", `${isPlaying ? "Jeda" : "Putar"} audio Misi Meja Simak`);
+}
+listeningMissionAudioControl.addEventListener("click", async () => {
+  if (!listeningMissionAudio.paused) {
+    listeningMissionAudio.pause();
+    return;
+  }
+  try {
+    await listeningMissionAudio.play();
+  } catch {
+    syncListeningMissionAudio();
+  }
+});
+listeningMissionAudio.addEventListener("play", syncListeningMissionAudio);
+listeningMissionAudio.addEventListener("pause", syncListeningMissionAudio);
+listeningMissionAudio.addEventListener("ended", syncListeningMissionAudio);
+completeListeningMission.addEventListener("click", () => {
+  listeningMissionAudio.pause();
+  listeningSuccess.hidden = false;
+  audioManager.playEffect("success");
+  continueListeningMission.focus();
+});
+continueListeningMission.addEventListener("click", () => {
+  listeningSuccess.hidden = true;
+  changeScene(showMissionRoom);
+});
 revisionLock.querySelector(".revision-lock__backdrop").addEventListener("click", closeRevisionLock);
 revisionLock.querySelector(".revision-lock__cancel").addEventListener("click", closeRevisionLock);
 revisionLockForm.addEventListener("submit", (event) => {
@@ -659,6 +696,10 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && !observationSuccess.hidden) {
     observationSuccess.hidden = true;
     completeObservationMission.focus();
+  }
+  if (event.key === "Escape" && !listeningSuccess.hidden) {
+    listeningSuccess.hidden = true;
+    completeListeningMission.focus();
   }
 });
 initLanding({

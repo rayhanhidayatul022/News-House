@@ -1,10 +1,21 @@
-<section class="mission-detail mission-detail--listening" id="listening-mission" aria-label="Misi Meja Simak" hidden>
-  <div class="mission-detail__stage">
-    <button class="button button--round mission-detail__home" type="button" aria-label="Kembali ke beranda" title="Beranda"><span class="sr-only">Beranda</span></button>
-    <button class="button mission-detail__back" type="button" aria-label="Kembali ke Ruang Misi" title="Kembali ke Ruang Misi"><span class="sr-only">Kembali ke Ruang Misi</span></button>
-    <section class="mission-detail__panel">
-      <img src="assets/images/mission-room/listening-active.png" alt="Misi Meja Simak">
-      <div><h1>Misi Meja Simak</h1><p>Halaman misi menyimak siap diisi dengan aktivitas berikutnya.</p></div>
-    </section>
+<section class="mission-detail listening-mission" id="listening-mission" aria-label="Misi Meja Simak" hidden>
+  <div class="mission-detail__stage listening-mission__stage">
+    <button class="button button--round mission-detail__home listening-mission__home" type="button" aria-label="Kembali ke beranda" title="Beranda"><span class="sr-only">Beranda</span></button>
+    <button class="button mission-detail__back listening-mission__back" type="button" aria-label="Kembali ke Ruang Misi" title="Kembali ke Ruang Misi"><span class="sr-only">Kembali ke Ruang Misi</span></button>
+    <button class="listening-mission__audio-control" id="listening-mission-audio-control" type="button" aria-label="Putar audio Misi Meja Simak" aria-pressed="false">
+      <span class="listening-mission__audio-disc" aria-hidden="true"><span class="listening-mission__play-icon"></span><span class="listening-mission__pause-icon"><i></i><i></i></span></span>
+      <span class="listening-mission__audio-label">PUTAR AUDIO</span>
+    </button>
+    <audio id="listening-mission-audio" preload="metadata"><source src="assets/audio/listening-dissection.mp3" type="audio/mpeg"></audio>
+    <img class="listening-mission__questions" src="assets/images/listening-mission/questions.png" alt="Lima soal Misi Meja Simak dengan kolom jawaban kosong">
+    <a class="listening-mission__upload button-link" href="https://drive.google.com/drive/folders/1J3xfa2oN5R9knGIPPLD984646M5y9tEE?usp=drive_link" target="_blank" rel="noopener noreferrer" aria-label="Unggah jawaban Misi Meja Simak ke Google Drive"><img src="assets/images/listening-mission/upload.png" alt="Unggah ke Google Drive"></a>
+    <button class="listening-mission__complete" id="complete-listening-mission" type="button" aria-label="Selesaikan Misi Meja Simak"><img src="assets/images/listening-mission/complete-button.png" alt="Selesaikan Misi"></button>
+    <div class="reading-success" id="listening-success" role="dialog" aria-modal="true" aria-label="Selamat, Misi Meja Simak telah selesai" hidden>
+      <div class="reading-success__backdrop" aria-hidden="true"></div>
+      <div class="reading-success__card">
+        <img src="assets/images/listening-mission/success-modal.png" alt="Selamat! Misi telah selesai. Hebat, Detektif Berita!">
+        <button class="reading-success__continue listening-success__continue" type="button" aria-label="Lanjutkan ke Ruang Misi"><span class="sr-only">Lanjutkan</span></button>
+      </div>
+    </div>
   </div>
 </section>
