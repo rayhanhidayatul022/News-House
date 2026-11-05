@@ -4,7 +4,7 @@ import { initReadingDesk } from "./reading-desk.js?v=20261101-2";
 import { initObservationDesk } from "./observation-desk.js?v=20261105-2";
 import { initAudioManager } from "./components/audio-manager.js?v=20261102-1";
 import { initExpressionRoom } from "./expression-room.js?v=20261101-2";
-import { initRevisionRoom } from "./revision-room.js?v=20261101-1";
+import { initRevisionRoom } from "./revision-room.js?v=20261105-2";
 
 const app = document.querySelector("#app");
 const pageMarkup = await Promise.all([
@@ -19,6 +19,7 @@ const pageMarkup = await Promise.all([
   fetch("pages/expression-room.html?v=20261101-2").then((response) => response.text()),
   fetch("pages/observation-expression.html?v=20261105-1").then((response) => response.text()),
   fetch("pages/revision-room.html?v=20261101-4").then((response) => response.text()),
+  fetch("pages/observation-revision.html?v=20261105-1").then((response) => response.text()),
   fetch("pages/answer-room.html?v=20261101-2").then((response) => response.text()),
   fetch("pages/mission-room.html?v=20261102-2").then((response) => response.text()),
   fetch("pages/reading-mission.html?v=20261102-2").then((response) => response.text()),
@@ -36,6 +37,7 @@ const observationDissectionRoom = document.querySelector("#observation-dissectio
 const expressionRoom = document.querySelector("#expression-room");
 const observationExpressionRoom = document.querySelector("#observation-expression-room");
 const revisionRoom = document.querySelector("#revision-room");
+const observationRevisionRoom = document.querySelector("#observation-revision-room");
 const answerRoom = document.querySelector("#answer-room");
 const missionRoom = document.querySelector("#mission-room");
 const missionDetailPages = [...document.querySelectorAll(".mission-detail")];
@@ -44,6 +46,10 @@ const revisionLock = revisionRoom.querySelector("#revision-lock");
 const revisionLockForm = revisionRoom.querySelector("#revision-lock-form");
 const revisionLockInput = revisionRoom.querySelector("#revision-lock-password");
 const revisionLockError = revisionRoom.querySelector("#revision-lock-error");
+const observationRevisionLock = observationRevisionRoom.querySelector("#observation-revision-lock");
+const observationRevisionLockForm = observationRevisionRoom.querySelector("#observation-revision-lock-form");
+const observationRevisionLockInput = observationRevisionRoom.querySelector("#observation-revision-lock-password");
+const observationRevisionLockError = observationRevisionRoom.querySelector("#observation-revision-lock-error");
 const readingDesk = initReadingDesk({
   onOpenDissection: () => changeScene(() => showDissectionRoom("reading-desk"))
 });
@@ -58,6 +64,10 @@ const observationExpressionState = initExpressionRoom({
   storageKey: "news-house.observation-expression-answers.v1"
 });
 const revisionState = initRevisionRoom();
+const observationRevisionState = initRevisionRoom({
+  root: observationRevisionRoom,
+  storageKey: "news-house.observation-expression-answers.v1"
+});
 const audioManager = initAudioManager();
 const readingMission = document.querySelector("#reading-mission");
 const readingSuccess = readingMission.querySelector("#reading-success");
@@ -75,6 +85,7 @@ const MISSION_PROGRESS_KEY = "newsHouseVisitedDesks";
 const visitedDesksMemory = new Set();
 let lastDissectionDesk = "reading-desk";
 let lastObservationDissectionDesk = "observation-desk";
+let lastRevisionType = "reading";
 const observationDissectionVideo = observationDissectionRoom.querySelector("#observation-dissection-video");
 
 function readVisitedDesks() {
@@ -115,6 +126,7 @@ function hideMissionDetailPages() {
   observationDissectionVideo.pause();
   observationDissectionRoom.hidden = true;
   observationExpressionRoom.hidden = true;
+  observationRevisionRoom.hidden = true;
 }
 
 function playSceneEntry(scene) {
@@ -265,6 +277,7 @@ function showObservationExpressionRoom() {
 }
 
 function showRevisionRoom() {
+  lastRevisionType = "reading";
   hideMissionDetailPages();
   landing.hidden = true;
   onboardingRoot.hidden = true;
@@ -279,6 +292,25 @@ function showRevisionRoom() {
   revisionRoom.hidden = false;
   playSceneEntry(revisionRoom);
   revisionRoom.querySelector(".revision-room__back").focus();
+}
+
+function showObservationRevisionRoom() {
+  lastRevisionType = "observation";
+  hideMissionDetailPages();
+  landing.hidden = true;
+  onboardingRoot.hidden = true;
+  editorialRoom.hidden = true;
+  deskPages.forEach((page) => { page.hidden = true; });
+  dissectionRoom.hidden = true;
+  expressionRoom.hidden = true;
+  revisionRoom.hidden = true;
+  answerRoom.hidden = true;
+  missionRoom.hidden = true;
+  closeObservationRevisionLock();
+  observationRevisionState.refresh();
+  observationRevisionRoom.hidden = false;
+  playSceneEntry(observationRevisionRoom);
+  observationRevisionRoom.querySelector(".revision-room__back").focus();
 }
 
 function openRevisionLock() {
@@ -296,6 +328,23 @@ function closeRevisionLock() {
   revisionLockInput.removeAttribute("aria-invalid");
   revisionLockError.textContent = "";
   revisionLockForm.classList.remove("is-wrong");
+}
+
+function openObservationRevisionLock() {
+  observationRevisionLock.hidden = false;
+  observationRevisionLockInput.value = "";
+  observationRevisionLockInput.removeAttribute("aria-invalid");
+  observationRevisionLockError.textContent = "";
+  observationRevisionLockForm.classList.remove("is-wrong");
+  observationRevisionLockInput.focus();
+}
+
+function closeObservationRevisionLock() {
+  observationRevisionLock.hidden = true;
+  observationRevisionLockInput.value = "";
+  observationRevisionLockInput.removeAttribute("aria-invalid");
+  observationRevisionLockError.textContent = "";
+  observationRevisionLockForm.classList.remove("is-wrong");
 }
 
 function requestAnswerRoom() {
@@ -384,11 +433,15 @@ expressionRoom.querySelector(".expression-room__back").addEventListener("click",
 expressionRoom.querySelector("#revision-room-button").addEventListener("click", () => changeScene(showRevisionRoom));
 observationExpressionRoom.querySelector(".expression-room__home").addEventListener("click", goHome);
 observationExpressionRoom.querySelector(".expression-room__back").addEventListener("click", () => changeScene(() => showObservationDissection(lastObservationDissectionDesk)));
+observationExpressionRoom.querySelector("#observation-revision-room-button").addEventListener("click", () => changeScene(showObservationRevisionRoom));
 revisionRoom.querySelector(".revision-room__home").addEventListener("click", goHome);
 revisionRoom.querySelector(".revision-room__back").addEventListener("click", () => changeScene(showExpressionRoom));
 revisionRoom.querySelector("#show-answer-button").addEventListener("click", openRevisionLock);
+observationRevisionRoom.querySelector(".revision-room__home").addEventListener("click", goHome);
+observationRevisionRoom.querySelector(".revision-room__back").addEventListener("click", () => changeScene(showObservationExpressionRoom));
+observationRevisionRoom.querySelector("#observation-show-answer-button").addEventListener("click", openObservationRevisionLock);
 answerRoom.querySelector(".answer-room__home").addEventListener("click", goHome);
-answerRoom.querySelector(".answer-room__back").addEventListener("click", () => changeScene(showRevisionRoom));
+answerRoom.querySelector(".answer-room__back").addEventListener("click", () => changeScene(lastRevisionType === "observation" ? showObservationRevisionRoom : showRevisionRoom));
 answerRoom.querySelector("#continue-mission-button").addEventListener("click", () => changeScene(showMissionRoom));
 missionRoom.querySelector(".mission-room__home").addEventListener("click", goHome);
 missionRoom.querySelector(".mission-room__back").addEventListener("click", () => changeScene(showEditorialRoom));
@@ -434,8 +487,26 @@ revisionLockForm.addEventListener("submit", (event) => {
   revisionLockForm.classList.add("is-wrong");
   revisionLockInput.select();
 });
+observationRevisionLock.querySelector(".revision-lock__backdrop").addEventListener("click", closeObservationRevisionLock);
+observationRevisionLock.querySelector(".revision-lock__cancel").addEventListener("click", closeObservationRevisionLock);
+observationRevisionLockForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  if (observationRevisionLockInput.value === "BedahSatu") {
+    closeObservationRevisionLock();
+    changeScene(showAnswerRoom);
+    return;
+  }
+
+  observationRevisionLockError.textContent = "Salah";
+  observationRevisionLockInput.setAttribute("aria-invalid", "true");
+  observationRevisionLockForm.classList.remove("is-wrong");
+  void observationRevisionLockForm.offsetWidth;
+  observationRevisionLockForm.classList.add("is-wrong");
+  observationRevisionLockInput.select();
+});
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && !revisionLock.hidden) closeRevisionLock();
+  if (event.key === "Escape" && !observationRevisionLock.hidden) closeObservationRevisionLock();
   if (event.key === "Escape" && !readingSuccess.hidden) {
     readingSuccess.hidden = true;
     completeReadingMission.focus();

@@ -1,0 +1,37 @@
+<section class="revision-room" id="observation-revision-room" aria-label="Ruang Revisi Meja Amati" hidden>
+  <div class="revision-room__stage">
+    <button class="button button--round revision-room__home" type="button" aria-label="Kembali ke beranda" title="Beranda"><span class="sr-only">Beranda</span></button>
+    <button class="button revision-room__back" type="button" aria-label="Kembali ke Ruang Ekspresi Meja Amati" title="Kembali ke Ruang Ekspresi Meja Amati"><span class="sr-only">Kembali ke Ruang Ekspresi Meja Amati</span></button>
+
+    <form class="revision-room__board" aria-label="Perbaiki jawaban ADIKSIMBA Meja Amati" autocomplete="off">
+      <img src="assets/images/revision-room/answer-board.png" alt="">
+      <div class="revision-room__answers">
+        <label><span class="sr-only">Apa</span><input name="apa" aria-label="Revisi jawaban unsur Apa"></label>
+        <label><span class="sr-only">Di mana</span><input name="diMana" aria-label="Revisi jawaban unsur Di mana"></label>
+        <label><span class="sr-only">Kapan</span><input name="kapan" aria-label="Revisi jawaban unsur Kapan"></label>
+        <label><span class="sr-only">Siapa</span><input name="siapa" aria-label="Revisi jawaban unsur Siapa"></label>
+        <label><span class="sr-only">Mengapa</span><input name="mengapa" aria-label="Revisi jawaban unsur Mengapa"></label>
+        <label><span class="sr-only">Bagaimana</span><input name="bagaimana" aria-label="Revisi jawaban unsur Bagaimana"></label>
+      </div>
+      <p class="revision-room__save-status" aria-live="polite">Perubahan tersimpan otomatis</p>
+    </form>
+
+    <button class="revision-room__show-answer" id="observation-show-answer-button" type="button" aria-label="Tampilkan Jawaban">
+      <img src="assets/images/revision-room/show-answer-button.png" alt="">
+    </button>
+
+    <div class="revision-lock" id="observation-revision-lock" role="dialog" aria-modal="true" aria-labelledby="observation-revision-lock-title" hidden>
+      <button class="revision-lock__backdrop" type="button" aria-label="Tutup dialog password"></button>
+      <form class="revision-lock__card" id="observation-revision-lock-form" autocomplete="off">
+        <h2 class="sr-only" id="observation-revision-lock-title">Masukkan password untuk membuka kunci jawaban</h2>
+        <button class="revision-lock__cancel" type="button" aria-label="Batalkan dan tutup dialog password" title="Batal">
+          <img src="assets/images/revision-room/cancel-button.png" alt="">
+        </button>
+        <label class="sr-only" for="observation-revision-lock-password">Password</label>
+        <input class="revision-lock__input" id="observation-revision-lock-password" name="answerPassword" type="password" autocomplete="off" autocapitalize="none" spellcheck="false" aria-describedby="observation-revision-lock-error">
+        <p class="revision-lock__error" id="observation-revision-lock-error" aria-live="assertive"></p>
+        <button class="revision-lock__submit" type="submit" aria-label="Buka Kunci"><span class="sr-only">Buka Kunci</span></button>
+      </form>
+    </div>
+  </div>
+</section>

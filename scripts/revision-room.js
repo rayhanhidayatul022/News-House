@@ -1,9 +1,8 @@
 import { ANSWER_FIELDS, readAnswers, writeAnswers } from "./components/answer-store.js";
 
-export function initRevisionRoom() {
-  const root = document.querySelector("#revision-room");
+export function initRevisionRoom({ root = document.querySelector("#revision-room"), storageKey } = {}) {
   const inputs = [...root.querySelectorAll(".revision-room__answers input")];
-  const status = root.querySelector("#revision-save-status");
+  const status = root.querySelector(".revision-room__save-status");
   let statusTimer;
 
   function getAnswers() {
@@ -20,12 +19,12 @@ export function initRevisionRoom() {
   }
 
   function save() {
-    writeAnswers(getAnswers());
+    writeAnswers(getAnswers(), storageKey);
     showSavedStatus();
   }
 
   function refresh() {
-    const answers = readAnswers();
+    const answers = readAnswers(storageKey);
     inputs.forEach((input) => { input.value = answers[input.name] ?? ""; });
   }
 
