@@ -23,7 +23,7 @@ const pageMarkup = await Promise.all([
   fetch("pages/answer-room.html?v=20261101-2").then((response) => response.text()),
   fetch("pages/mission-room.html?v=20261102-2").then((response) => response.text()),
   fetch("pages/reading-mission.html?v=20261102-2").then((response) => response.text()),
-  fetch("pages/observation-mission.html?v=20261102-1").then((response) => response.text()),
+  fetch("pages/observation-mission.html?v=20261105-2").then((response) => response.text()),
   fetch("pages/listening-mission.html?v=20261102-1").then((response) => response.text())
 ]);
 app.innerHTML = pageMarkup.join("");
@@ -70,9 +70,14 @@ const observationRevisionState = initRevisionRoom({
 });
 const audioManager = initAudioManager();
 const readingMission = document.querySelector("#reading-mission");
+const observationMissionVideo = document.querySelector("#observation-mission-video");
 const readingSuccess = readingMission.querySelector("#reading-success");
 const completeReadingMission = readingMission.querySelector("#complete-reading-mission");
 const continueReadingMission = readingSuccess.querySelector(".reading-success__continue");
+const observationMission = document.querySelector("#observation-mission");
+const observationSuccess = observationMission.querySelector("#observation-success");
+const completeObservationMission = observationMission.querySelector("#complete-observation-mission");
+const continueObservationMission = observationSuccess.querySelector(".observation-success__continue");
 
 const transitionOverlay = document.createElement("div");
 transitionOverlay.className = "scene-transition";
@@ -124,6 +129,7 @@ function refreshMissionCards() {
 function hideMissionDetailPages() {
   missionDetailPages.forEach((page) => { page.hidden = true; });
   observationDissectionVideo.pause();
+  observationMissionVideo.pause();
   observationDissectionRoom.hidden = true;
   observationExpressionRoom.hidden = true;
   observationRevisionRoom.hidden = true;
@@ -470,6 +476,16 @@ continueReadingMission.addEventListener("click", () => {
   readingSuccess.hidden = true;
   changeScene(showMissionRoom);
 });
+completeObservationMission.addEventListener("click", () => {
+  observationMissionVideo.pause();
+  observationSuccess.hidden = false;
+  audioManager.playEffect("success");
+  continueObservationMission.focus();
+});
+continueObservationMission.addEventListener("click", () => {
+  observationSuccess.hidden = true;
+  changeScene(showMissionRoom);
+});
 revisionLock.querySelector(".revision-lock__backdrop").addEventListener("click", closeRevisionLock);
 revisionLock.querySelector(".revision-lock__cancel").addEventListener("click", closeRevisionLock);
 revisionLockForm.addEventListener("submit", (event) => {
@@ -510,6 +526,10 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && !readingSuccess.hidden) {
     readingSuccess.hidden = true;
     completeReadingMission.focus();
+  }
+  if (event.key === "Escape" && !observationSuccess.hidden) {
+    observationSuccess.hidden = true;
+    completeObservationMission.focus();
   }
 });
 initLanding({

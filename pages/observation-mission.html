@@ -1,10 +1,29 @@
-<section class="mission-detail mission-detail--observation" id="observation-mission" aria-label="Misi Meja Amati" hidden>
-  <div class="mission-detail__stage">
-    <button class="button button--round mission-detail__home" type="button" aria-label="Kembali ke beranda" title="Beranda"><span class="sr-only">Beranda</span></button>
-    <button class="button mission-detail__back" type="button" aria-label="Kembali ke Ruang Misi" title="Kembali ke Ruang Misi"><span class="sr-only">Kembali ke Ruang Misi</span></button>
-    <section class="mission-detail__panel">
-      <img src="assets/images/mission-room/observation-active.png" alt="Misi Meja Amati">
-      <div><h1>Misi Meja Amati</h1><p>Halaman misi pengamatan siap diisi dengan aktivitas berikutnya.</p></div>
+<section class="mission-detail observation-mission" id="observation-mission" aria-label="Misi Meja Amati" hidden>
+  <div class="mission-detail__stage observation-mission__stage">
+    <button class="button button--round mission-detail__home observation-mission__home" type="button" aria-label="Kembali ke beranda" title="Beranda"><span class="sr-only">Beranda</span></button>
+    <button class="button mission-detail__back observation-mission__back" type="button" aria-label="Kembali ke Ruang Misi" title="Kembali ke Ruang Misi"><span class="sr-only">Kembali ke Ruang Misi</span></button>
+    <img class="observation-mission__header" src="assets/images/observation-mission/header.png" alt="Misi Meja Amati. Tantangan Editor Visual">
+    <img class="observation-mission__briefing" src="assets/images/observation-mission/briefing.png" alt="Redaksi menerima sebuah video berita. Simak video dengan cermat lalu selesaikan misi berdasarkan informasi yang diperoleh">
+    <img class="observation-mission__instruction" src="assets/images/observation-mission/instruction.png" alt="Perhatikan adegan, dialog, teks, layar, dan informasi dari narasumber dalam video. Tonton dengan saksama dan temukan informasi penting">
+    <section class="observation-mission__video-frame" aria-label="Video Misi Meja Amati">
+      <video id="observation-mission-video" controls preload="metadata" playsinline>
+        <source src="assets/video/misi-amati.mp4" type="video/mp4">
+        Browser kamu belum mendukung pemutaran video.
+      </video>
     </section>
+    <img class="observation-mission__questions" src="assets/images/observation-mission/questions.png" alt="Lima soal Misi Meja Amati dengan kolom jawaban kosong">
+    <a class="observation-mission__upload button-link" href="https://drive.google.com/drive/folders/1J3xfa2oN5R9knGIPPLD984646M5y9tEE?usp=drive_link" target="_blank" rel="noopener noreferrer" aria-label="Unggah jawaban Misi Meja Amati ke Google Drive">
+      <img src="assets/images/observation-mission/upload-card.png" alt="Unggah Jawaban di Google Drive. Format PDF, DOC, atau JPG">
+    </a>
+    <button class="observation-mission__complete" id="complete-observation-mission" type="button" aria-label="Selesaikan Misi Meja Amati">
+      <img src="assets/images/observation-mission/complete-button.png" alt="Selesaikan Misi">
+    </button>
+    <div class="reading-success" id="observation-success" role="dialog" aria-modal="true" aria-label="Selamat, Misi Meja Amati telah selesai" hidden>
+      <div class="reading-success__backdrop" aria-hidden="true"></div>
+      <div class="reading-success__card">
+        <img src="assets/images/observation-mission/success-modal.png" alt="Selamat! Misi telah selesai. Hebat, Detektif Berita!">
+        <button class="reading-success__continue observation-success__continue" type="button" aria-label="Lanjutkan ke Ruang Misi"><span class="sr-only">Lanjutkan</span></button>
+      </div>
+    </div>
   </div>
 </section>

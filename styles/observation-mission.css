@@ -1,0 +1,23 @@
+.observation-mission { background: #08285a; }
+.observation-mission__stage { position: relative; width: min(100vw, 177.7344svh); aspect-ratio: 1365 / 768; overflow: hidden; background: url("../assets/images/observation-mission/background.png") center / cover no-repeat; box-shadow: 0 0 70px #03122ac7; }
+.observation-mission__stage::after { display: none; }
+.observation-mission__home, .observation-mission__back { z-index: 12; }
+.observation-mission__header, .observation-mission__briefing, .observation-mission__instruction, .observation-mission__questions { position: absolute; z-index: 3; display: block; object-fit: contain; filter: drop-shadow(0 .55vw .45vw #04132f70); }
+.observation-mission__header { top: 1%; left: 8.2%; width: 42%; height: 18%; }
+.observation-mission__briefing { top: 1.6%; right: 7.5%; width: 40%; height: 18%; }
+.observation-mission__instruction { top: 16.5%; left: 3.4%; width: 47.5%; height: 19%; object-position: left center; }
+.observation-mission__video-frame { position: absolute; z-index: 4; top: 32%; left: 3.4%; width: 47.5%; aspect-ratio: 16 / 9; box-sizing: border-box; overflow: hidden; padding: .7%; border: .55vw solid #171d28; border-radius: 1.15vw; background: linear-gradient(135deg, #ffe12a, #ff9d00 23%, #111a2b 23%, #080d17 77%, #ff9d00 77%, #ffe12a); box-shadow: 0 .7vw 0 #23140b, 0 1vw 1.25vw #020b1e9c, inset 0 0 0 .18vw #ffd83f; }
+.observation-mission__video-frame::before { content: ""; position: absolute; z-index: 2; inset: .15vw; pointer-events: none; border: .28vw dashed #ffd532; border-radius: .65vw; opacity: .9; }
+.observation-mission__video-frame video { position: relative; z-index: 1; display: block; width: 100%; height: 100%; border-radius: .5vw; background: #05070c; object-fit: contain; }
+.observation-mission__questions { top: 20%; right: 4%; width: 43.5%; height: 65%; object-position: center top; }
+.observation-mission__upload { position: absolute; z-index: 7; right: .4%; bottom: 7.5%; display: block; width: 14.5%; height: 41%; transition: transform .16s ease, filter .16s ease; }
+.observation-mission__upload img { display: block; width: 100%; height: 100%; object-fit: contain; pointer-events: none; filter: drop-shadow(0 .55vw .45vw #07152f8a); }
+.observation-mission__upload:hover { filter: brightness(1.07) drop-shadow(0 0 .65vw #ffe24a); transform: translateY(-2%) scale(1.025) rotate(.5deg); }
+.observation-mission__upload:active { transform: translateY(1%) scale(.98); }
+.observation-mission__upload:focus-visible { border-radius: 1.5vw; outline: .35vw solid #fff; outline-offset: .12vw; }
+.observation-mission__complete { position: absolute; z-index: 6; right: 16%; bottom: 1.2%; width: 29%; height: 11.5%; padding: 0; border: 0; background: transparent; cursor: pointer; transition: transform .16s ease, filter .16s ease; }
+.observation-mission__complete img { display: block; width: 100%; height: 100%; object-fit: contain; pointer-events: none; filter: drop-shadow(0 .45vw .35vw #31115380); }
+.observation-mission__complete:hover { filter: brightness(1.08) drop-shadow(0 0 .6vw #ffe344); transform: translateY(-4%) scale(1.025); }
+.observation-mission__complete:active { transform: translateY(2%) scale(.98); }
+.observation-mission__complete:focus-visible { border-radius: 999px; outline: .35vw solid #fff; outline-offset: .12vw; }
+@media (prefers-reduced-motion: reduce) { .observation-mission__upload, .observation-mission__complete { transition: none; } }
