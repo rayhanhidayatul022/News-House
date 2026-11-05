@@ -1,0 +1,32 @@
+<section class="expression-room" id="expression-room" aria-label="Ruang Ekspresi" hidden>
+  <div class="expression-room__stage">
+    <button class="button button--round expression-room__home" type="button" aria-label="Kembali ke beranda" title="Beranda"><span class="sr-only">Beranda</span></button>
+    <button class="button expression-room__back" type="button" aria-label="Kembali ke Ruang Bedah Teks" title="Kembali ke Ruang Bedah Teks"><span class="sr-only">Kembali ke Ruang Bedah Teks</span></button>
+
+    <img class="expression-room__header" src="assets/images/expression-room/header.png" alt="Ruang Ekspresi. Tulis idemu dan unggah karyamu di sini!">
+
+    <form class="expression-room__worksheet" aria-label="Tulis ekspresimu" autocomplete="off">
+      <img src="assets/images/expression-room/answer-panel.png" alt="">
+      <div class="expression-room__answers">
+        <label><span class="sr-only">Apa</span><input name="apa" aria-label="Jawaban unsur Apa"></label>
+        <label><span class="sr-only">Di mana</span><input name="diMana" aria-label="Jawaban unsur Di mana"></label>
+        <label><span class="sr-only">Siapa</span><input name="siapa" aria-label="Jawaban unsur Siapa"></label>
+        <label><span class="sr-only">Kapan</span><input name="kapan" aria-label="Jawaban unsur Kapan"></label>
+        <label><span class="sr-only">Mengapa</span><input name="mengapa" aria-label="Jawaban unsur Mengapa"></label>
+        <label><span class="sr-only">Bagaimana</span><input name="bagaimana" aria-label="Jawaban unsur Bagaimana"></label>
+      </div>
+      <p class="expression-room__save-status" id="expression-save-status" aria-live="polite">Jawaban tersimpan otomatis</p>
+    </form>
+
+    <section class="expression-room__upload" aria-label="Unggah karyamu">
+      <img class="expression-room__upload-panel" src="assets/images/expression-room/upload-panel.png" alt="Unggah karyamu. Format yang didukung: video, audio, gambar, dan poster">
+      <a class="button-link expression-room__drop-file" href="https://drive.google.com/drive/folders/18VmLWe0-TBFGiY_-WdDXtgz5xEED_ks_?usp=drive_link" target="_blank" rel="noopener noreferrer" aria-label="Buka folder Google Drive untuk mengunggah karya">
+        <img src="assets/images/expression-room/drop-file.png" alt="Klik di sini untuk memilih file atau seret file ke sini">
+      </a>
+    </section>
+
+    <button class="expression-room__revision" id="revision-room-button" type="button" aria-label="Buka Ruang Revisi">
+      <img src="assets/images/expression-room/revision-button.png" alt="">
+    </button>
+  </div>
+</section>

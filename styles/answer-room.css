@@ -1,0 +1,21 @@
+.answer-room { position: fixed; inset: 0; z-index: 8; display: grid; place-items: center; overflow: hidden; background: #142e4d; }
+.answer-room[hidden] { display: none; }
+.answer-room__stage { position: relative; width: min(100vw, 177.7344svh); aspect-ratio: 1365 / 768; overflow: hidden; background: url("../assets/images/revision-room/background.png") center / contain no-repeat; box-shadow: 0 0 70px #071627bb; }
+.answer-room__home, .answer-room__back { position: absolute; z-index: 20; left: 1.4%; width: 4.6%; aspect-ratio: 1; height: auto; padding: 0; border: 0; box-shadow: none; font-size: 0; }
+.answer-room__home { top: 2%; border-radius: 50%; background: url("../assets/images/button/home.png") center / contain no-repeat; }
+.answer-room__back { bottom: 2%; background: url("../assets/images/button/panah-kiri.png") center / contain no-repeat; }
+.answer-room__header { position: absolute; z-index: 5; top: -.6%; left: 52%; width: 73%; height: 20.5%; object-fit: contain; transform: translateX(-50%); filter: drop-shadow(0 6px 5px #20100870); }
+.answer-room__news { position: absolute; z-index: 4; top: 15.2%; left: 2.2%; width: 29.5%; height: 70.5%; object-fit: contain; filter: drop-shadow(0 8px 8px #1b0c0770); }
+.answer-room__board { position: absolute; z-index: 3; top: 14.2%; right: .7%; width: 69.7%; height: 74%; box-sizing: border-box; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 0; padding: 9.3% 2.6% 3.5%; background: url("../assets/images/answer-room/adiksimba-board.png") center / 100% 100% no-repeat; filter: drop-shadow(0 .75vw .65vw #23100680); }
+.answer-room__board img { align-self: center; width: 100%; height: auto; min-width: 0; aspect-ratio: 4 / 3; object-fit: contain; filter: none; }
+.answer-room__books { position: absolute; z-index: 6; bottom: -1%; left: 4.8%; width: 14%; height: 27%; object-fit: contain; object-position: left bottom; filter: drop-shadow(0 .5vw .4vw #190a0755); pointer-events: none; }
+.answer-room__continue { position: absolute; z-index: 10; left: 56%; bottom: -.2%; width: 42%; height: 14.2%; padding: 0; border: 0; background: transparent; box-shadow: none; transform: translateX(-50%); }
+.answer-room__continue img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.answer-room__continue:hover { transform: translateX(-50%) scale(1.035); }
+.answer-room__continue:active { transform: translateX(-50%) scale(.98); }
+.answer-room__continue:focus-visible { outline: .35vw solid #fff; outline-offset: .25vw; border-radius: 999px; }
+
+@media (max-aspect-ratio: 4 / 5) {
+  .answer-room__board { right: .5%; width: 70%; }
+  .answer-room__news { left: 1.8%; width: 30%; }
+}

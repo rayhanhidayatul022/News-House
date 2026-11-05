@@ -1,0 +1,35 @@
+@import url("./observation-desk.css?v=20261105-6");
+
+.desk-page { position: fixed; inset: 0; z-index: 4; display: grid; place-items: center; overflow: hidden; background: #102d50; }
+.desk-page[hidden] { display: none; }
+.desk-page__stage { position: relative; width: min(100vw, 177.7344svh); aspect-ratio: 1365 / 768; overflow: hidden; background: url("../assets/images/editorial-room/newsroom-background.png") center / contain no-repeat; box-shadow: 0 0 70px #031222aa; }
+.desk-page__stage::after { content: ""; position: absolute; z-index: 0; inset: 0; pointer-events: none; background: linear-gradient(180deg, #06193744, transparent 35%, #3b18052e); }
+.desk-page__home, .desk-page__back { position: absolute; z-index: 4; top: 2.2%; width: 5.3%; aspect-ratio: 1; height: auto; padding: 0; border: 0; box-shadow: none; font-size: 0; }
+.desk-page__home { left: 1.7%; border-radius: 50%; background: url("../assets/images/button/home.png") center / contain no-repeat; }
+.desk-page__back { top: auto; right: auto; bottom: 2.2%; left: 1.7%; background: url("../assets/images/button/panah-kiri.png") center / contain no-repeat; }
+.desk-page__identity { position: absolute; z-index: 2; top: 1.5%; left: 50%; width: 30%; height: 31%; object-fit: contain; filter: drop-shadow(0 8px 7px #071a3270); transform: translateX(-50%); }
+.desk-page__workspace { position: absolute; z-index: 1; top: 29%; right: 8%; bottom: 5%; left: 8%; border: 7px solid #7b3a12; border-radius: 34px; background: linear-gradient(#fff8dfed, #ffeab8f2); box-shadow: 0 12px 0 #4f250d, inset 0 0 0 5px #f5b83e, 0 16px 28px #05183266; }
+.desk-page--read .desk-page__workspace { border-color: #558d13; box-shadow: 0 12px 0 #355c0a, inset 0 0 0 5px #add74a, 0 16px 28px #05183266; }
+.desk-page--observe .desk-page__workspace { border-color: #1375ba; box-shadow: 0 12px 0 #084b7d, inset 0 0 0 5px #66c2f3, 0 16px 28px #05183266; }
+.desk-page--listen .desk-page__workspace { border-color: #7c32b8; box-shadow: 0 12px 0 #4f1b79, inset 0 0 0 5px #c574ef, 0 16px 28px #05183266; }
+
+.desk-page--read .desk-page__stage { background-image: url("../assets/images/reading-desk/background.png"); }
+.desk-page--read .reading-desk__title { top: .5%; width: 39%; height: 19%; }
+.reading-desk__content { position: absolute; z-index: 1; top: 13%; right: 4%; bottom: 15.5%; left: 4%; }
+.reading-desk__view { position: absolute; inset: 0; display: grid; place-items: center; }
+.reading-desk__view[hidden] { display: none; }
+.reading-desk__view img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 10px 9px #10294d55); }
+.reading-desk__view.is-appearing { animation: reading-card-in .35s cubic-bezier(.2, .85, .25, 1) both; }
+.reading-desk__actions { position: absolute; z-index: 4; bottom: .8%; left: 50%; display: flex; justify-content: center; align-items: stretch; gap: 2%; width: 54%; height: 13.5%; transform: translateX(-50%); }
+.reading-desk__toggle, .reading-desk__dissection { position: relative; z-index: 1; height: 100%; padding: 0; border: 0; background: transparent; cursor: pointer; pointer-events: auto; touch-action: manipulation; transition: filter .2s, transform .15s; }
+.reading-desk__toggle { width: 42%; }
+.reading-desk__dissection { width: 52%; }
+.reading-desk__toggle img, .reading-desk__dissection img { display: block; width: 100%; height: 100%; object-fit: contain; pointer-events: none; user-select: none; }
+.reading-desk__toggle:hover, .reading-desk__dissection:hover { filter: brightness(1.08) drop-shadow(0 0 10px #ffe043); transform: translateY(-3px) scale(1.025); }
+.reading-desk__toggle:active, .reading-desk__dissection:active { transform: translateY(2px) scale(.98); }
+.reading-desk__toggle:focus-visible, .reading-desk__dissection:focus-visible { border-radius: 30px; outline: 6px solid #fff; outline-offset: 2px; }
+
+@keyframes reading-card-in {
+  from { opacity: 0; transform: translateY(14px) scale(.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}

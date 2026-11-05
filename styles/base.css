@@ -1,0 +1,27 @@
+@font-face {
+  font-family: "Baloo 2";
+  src: url("../assets/fonts/Baloo2.ttf") format("truetype");
+  font-weight: 400 800;
+  font-display: swap;
+}
+
+:root {
+  --font-display: "Baloo 2", "Comic Sans MS", cursive;
+  --ink-blue: #142c51;
+  --ink-brown: #65310d;
+  --navy: #142d48;
+  --yellow: #ffca08;
+  --yellow-light: #fff23d;
+  --outline: #713710;
+  --content-width: min(620px, 42vw);
+}
+
+* { box-sizing: border-box; }
+html, body { min-height: 100%; }
+body { min-width: 1100px; margin: 0; background: var(--navy); color: var(--ink-brown); font-family: var(--font-display); }
+button { font: inherit; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+}

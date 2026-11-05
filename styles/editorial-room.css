@@ -1,0 +1,34 @@
+.editorial-room { position: fixed; inset: 0; z-index: 3; display: grid; place-items: center; overflow: hidden; background: #102d50; }
+.editorial-room[hidden] { display: none; }
+.editorial-room__stage { position: relative; width: min(100vw, 177.7344svh); aspect-ratio: 1365 / 768; overflow: hidden; background: url("../assets/images/editorial-room/newsroom-background.png") center / contain no-repeat; box-shadow: 0 0 70px #031222aa; }
+.editorial-room__stage::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, #06193722 0%, transparent 26%, transparent 72%, #54220824 100%); }
+
+.editorial-room__home { position: absolute; z-index: 5; top: 2.2%; left: 1.7%; width: 5.3%; aspect-ratio: 1; height: auto; padding: 0; border: 0; background: url("../assets/images/button/home.png") center / contain no-repeat; box-shadow: none; font-size: 0; }
+
+.editorial-room__title { position: absolute; z-index: 2; top: 1.2%; left: 17.5%; width: 65%; height: 22%; object-fit: contain; filter: drop-shadow(0 7px 5px #08173566); animation: room-item-in .45s ease-out both; }
+
+.editorial-room__desks { position: absolute; z-index: 2; top: 21%; left: 50%; display: grid; grid-template-columns: repeat(3, 1fr); align-items: center; gap: 1.2%; width: 76%; height: 38%; transform: translateX(-50%); }
+.editorial-desk { display: grid; place-items: center; min-width: 0; height: 100%; padding: 0; border: 0; background: transparent; cursor: pointer; animation: room-item-in .45s ease-out backwards; transition: transform .2s; }
+.editorial-desk:nth-child(2) { animation-delay: .08s; }
+.editorial-desk:nth-child(3) { animation-delay: .16s; }
+.editorial-desk img { display: block; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 8px 7px #071a3270); animation: desk-float 3.2s ease-in-out infinite; transition: filter .2s, transform .2s; }
+.editorial-desk:nth-child(2) img { animation-delay: -.8s; }
+.editorial-desk:nth-child(3) img { animation-delay: -1.6s; }
+.editorial-desk:hover { transform: translateY(-6px) scale(1.025); }
+.editorial-desk:hover img { filter: brightness(1.08) drop-shadow(0 12px 9px #071a3288); }
+.editorial-desk:active { transform: translateY(-1px) scale(.98); }
+.editorial-desk:focus-visible { border-radius: 24px; outline: 6px solid #fff; outline-offset: 2px; }
+.editorial-desk--observe img { width: 96%; }
+
+.editorial-room__guide { position: absolute; z-index: 3; bottom: -1%; left: 9%; width: 82%; aspect-ratio: 2155 / 730; animation: room-item-in .5s .2s ease-out both; }
+.editorial-room__guide img { display: block; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 8px 8px #411b0866); }
+
+@keyframes room-item-in {
+  from { opacity: 0; transform: translateY(12px) scale(.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes desk-float {
+  0%, 100% { transform: translateY(0) rotate(-.3deg); }
+  50% { transform: translateY(-4px) rotate(.3deg); }
+}

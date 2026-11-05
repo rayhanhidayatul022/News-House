@@ -1,0 +1,19 @@
+.dissection-room { position: fixed; inset: 0; z-index: 5; display: grid; place-items: center; overflow: hidden; background: #16314b; }
+.dissection-room[hidden] { display: none; }
+.dissection-room__stage { position: relative; width: min(100vw, 177.7344svh); aspect-ratio: 1365 / 768; overflow: hidden; background: url("../assets/images/dissection-room/background.png") center / contain no-repeat; box-shadow: 0 0 70px #071627bb; }
+.dissection-room__stage::after { content: ""; position: absolute; z-index: 0; inset: 0; pointer-events: none; background: linear-gradient(180deg, #06172e2b, transparent 34%, #6f350016); }
+.dissection-room__home, .dissection-room__back { position: absolute; z-index: 8; left: 1.6%; width: 5.1%; aspect-ratio: 1; height: auto; padding: 0; border: 0; box-shadow: none; font-size: 0; }
+.dissection-room__home { top: 2%; border-radius: 50%; background: url("../assets/images/button/home.png") center / contain no-repeat; }
+.dissection-room__back { bottom: 2%; background: url("../assets/images/button/panah-kiri.png") center / contain no-repeat; }
+.dissection-room__header { position: absolute; z-index: 2; top: -.3%; left: 50%; width: 70%; height: 21%; object-fit: contain; filter: drop-shadow(0 8px 8px #10234266); transform: translateX(-50%); }
+.dissection-room__news, .dissection-room__instructions, .dissection-room__worksheet { position: absolute; z-index: 2; margin: 0; }
+.dissection-room__news { top: 17%; bottom: 4.5%; left: 2%; width: 51%; }
+.dissection-room__instructions { top: 16.5%; right: 1.5%; width: 47%; height: 34%; }
+.dissection-room__worksheet { top: 48%; right: 1.5%; width: 47%; height: 39.5%; }
+.dissection-room__news > img, .dissection-room__instructions > img, .dissection-room__worksheet > img { display: block; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 9px 8px #1023425c); }
+.dissection-room__expression { position: absolute; z-index: 6; right: 6.5%; bottom: 1.5%; width: 36%; height: 12.5%; padding: 0; border: 0; background: transparent; box-shadow: none; cursor: pointer; transition: filter .2s, transform .15s; }
+.dissection-room__expression img { display: block; width: 100%; height: 100%; object-fit: contain; pointer-events: none; user-select: none; }
+.dissection-room__expression:hover { filter: brightness(1.08) drop-shadow(0 0 10px #ffe137); transform: translateY(-3px) scale(1.025); }
+.dissection-room__expression:active { transform: translateY(3px) scale(.98); }
+.dissection-room__expression:focus-visible { outline: 6px solid #fff; outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { .dissection-room__expression { transition: none; } }

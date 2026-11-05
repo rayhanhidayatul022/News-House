@@ -1,0 +1,6 @@
+.landing { position: relative; height: 100svh; overflow: hidden; background: radial-gradient(ellipse, #2a8faf, #102b43); }
+.landing__scene { position: absolute; top: 50%; left: 50%; width: min(100vw, 177.7344svh); aspect-ratio: 1365 / 768; background: url("../assets/images/landing/landing-page.png") center / contain no-repeat; box-shadow: 0 0 80px #0005; transform: translate(-50%, -50%); }
+.landing__enter { position: absolute; left: 37%; top: 75.9%; width: 26.1%; height: 14.5%; padding: 0; border: 0; border-radius: 999px; background: transparent; cursor: pointer; transition: filter .2s, transform .12s; }
+.landing__enter:hover { filter: brightness(1.08) drop-shadow(0 0 10px #ffe44b); }
+.landing__enter:active { filter: brightness(.92); transform: translateY(3px); }
+.landing__enter:focus-visible { outline: 5px solid #fff; outline-offset: 6px; box-shadow: 0 0 0 12px #0758b3; }

@@ -1,0 +1,68 @@
+<section class="desk-page desk-page--observe" id="observation-desk" aria-label="Meja Amati" hidden>
+  <style>
+    :is(#observation-desk, #observation-example) .observation-desk__player {
+      position: absolute !important;
+      z-index: 2 !important;
+      top: 44% !important;
+      left: 50% !important;
+      width: 58% !important;
+      height: 60% !important;
+      margin: 0 !important;
+      transform: translate(-50%, -50%) !important;
+    }
+    :is(#observation-desk, #observation-example) .observation-desk__screen {
+      position: absolute !important;
+      inset: 0 !important;
+      overflow: hidden !important;
+      box-sizing: border-box !important;
+      border-radius: 18px !important;
+    }
+    :is(#observation-desk, #observation-example) .observation-desk__video {
+      display: block !important;
+      width: 100% !important;
+      height: 100% !important;
+      max-width: 100% !important;
+      max-height: 100% !important;
+      box-sizing: border-box !important;
+      border-radius: 11px !important;
+      object-fit: contain !important;
+      background: #020817 !important;
+    }
+  </style>
+  <div class="desk-page__stage observation-desk__stage">
+    <button class="button button--round desk-page__home" type="button" aria-label="Kembali ke beranda" title="Beranda"><span class="sr-only">Beranda</span></button>
+    <button class="button desk-page__back" type="button" aria-label="Kembali ke Ruang Redaksi" title="Kembali ke Ruang Redaksi"><span class="sr-only">Kembali ke Ruang Redaksi</span></button>
+    <section class="observation-desk__player" aria-label="Video pembelajaran Meja Amati">
+      <div class="observation-desk__player-title" aria-hidden="true"><span></span><strong>VIDEO PEMBELAJARAN</strong><span></span></div>
+      <div class="observation-desk__screen">
+        <video class="observation-desk__video" id="observation-video" controls preload="metadata" playsinline>
+          <source src="assets/video/video-pembelajaran.mp4" type="video/mp4">
+          Browser kamu belum mendukung pemutaran video.
+        </video>
+      </div>
+    </section>
+    <div class="observation-desk__actions" aria-label="Aksi Meja Amati">
+      <button class="observation-desk__button observation-desk__button--example" id="observation-example-button" type="button" aria-label="Putar contoh video dari awal"><img src="assets/images/observation-desk/example-button.png" alt="Contoh"></button>
+      <button class="observation-desk__button observation-desk__button--dissection" id="observation-dissection-button" type="button" aria-label="Mari ke Ruang Bedah"><img src="assets/images/observation-desk/dissection-room-button.png" alt="Mari ke Ruang Bedah"></button>
+    </div>
+  </div>
+</section>
+
+<section class="desk-page desk-page--observe observation-example" id="observation-example" aria-label="Contoh Meja Amati" hidden>
+  <div class="desk-page__stage observation-desk__stage">
+    <button class="button button--round desk-page__home" type="button" aria-label="Kembali ke beranda" title="Beranda"><span class="sr-only">Beranda</span></button>
+    <button class="button desk-page__back" type="button" aria-label="Kembali ke Meja Amati" title="Kembali ke Meja Amati"><span class="sr-only">Kembali ke Meja Amati</span></button>
+    <section class="observation-desk__player" aria-label="Video contoh berita Meja Amati">
+      <div class="observation-desk__player-title" aria-hidden="true"><span></span><strong>CONTOH BERITA</strong><span></span></div>
+      <div class="observation-desk__screen">
+        <video class="observation-desk__video" id="observation-example-video" controls preload="metadata" playsinline>
+          <source src="assets/video/contoh-berita.mp4" type="video/mp4">
+          Browser kamu belum mendukung pemutaran video.
+        </video>
+      </div>
+    </section>
+    <div class="observation-desk__actions observation-desk__actions--single" aria-label="Aksi Contoh Meja Amati">
+      <button class="observation-desk__button observation-desk__button--dissection" id="observation-example-dissection-button" type="button" aria-label="Mari ke Ruang Bedah"><img src="assets/images/observation-desk/dissection-room-button.png" alt="Mari ke Ruang Bedah"></button>
+    </div>
+  </div>
+</section>

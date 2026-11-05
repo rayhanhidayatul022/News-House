@@ -1,0 +1,32 @@
+.onboarding { --stage-width: min(100vw, 177.7778svh); position: fixed; inset: 0; z-index: 2; overflow: hidden; background: var(--navy) url("../assets/images/onboarding/newsroom-onboarding.png") center / contain no-repeat; }
+.onboarding[hidden] { display: none; }
+.onboarding__home { position: absolute; top: 20px; left: calc((100vw - var(--stage-width)) / 2 + 20px); width: 64px; height: 64px; padding: 0; border: 0; background: url("../assets/images/button/home.png") center / contain no-repeat; box-shadow: none; font-size: 0; }
+.dialogue { position: absolute; top: 50%; right: calc((100vw - var(--stage-width)) / 2 + 2vw); width: min(760px, 55vw); filter: drop-shadow(0 9px 12px #0004); transform: translateY(-50%); }
+.dialogue__header { width: 108%; height: 130px; display: flex; align-items: center; justify-content: center; margin: 0 0 -2px -4%; padding: 7px 7% 0 24%; background: url("../assets/images/common/mission-header.png") center / 100% 160% no-repeat; color: var(--ink-blue); font-size: 44px; font-weight: 800; letter-spacing: -.5px; line-height: 1; text-align: center; -webkit-text-stroke: 4px #fffaf1; paint-order: stroke fill; text-shadow: 0 3px 0 #60371855; }
+.paper { position: relative; height: 470px; padding: 78px 9% 120px; background: url("../assets/images/common/mission-paper.png") center / 100% 100% no-repeat; animation: panel-fade .25s ease-out; }
+.dialogue h1 { margin: 0 0 16px; color: var(--ink-blue); font-size: 36px; font-weight: 800; letter-spacing: -.3px; line-height: 1.12; text-align: center; }
+.briefing-copy { min-height: 125px; padding-top: 12px; color: #192d4c; font-size: 21px; font-weight: 700; line-height: 1.4; white-space: pre-line; }
+.paper[data-step="1"] .briefing-copy { min-height: 0; margin-bottom: 14px; }
+.paper[data-step="1"] .targets { transform: translateY(-10px); }
+.briefing-copy.typing::after, .targets .typing::after { content: "▍"; color: #b17821; animation: blink .7s step-end infinite; }
+.targets { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.targets li { display: flex; align-items: center; gap: 11px; font-size: 18px; font-weight: 700; line-height: 1.25; }
+.number { flex: 0 0 36px; display: grid; place-items: center; width: 36px; height: 36px; border: 3px solid #12385d; border-radius: 10px; background: linear-gradient(#4bb3ff, #0871c8); box-shadow: 2px 3px 0 #12385d, inset 2px 2px 0 #9dd8ff; color: #fff9df; font-size: 23px; font-weight: 800; transform: rotate(-7deg); text-shadow: 1px 2px #164b81; }
+.targets li:nth-child(2) .number { border-color: #7b4219; background: linear-gradient(#ffd943, #ffac13); box-shadow: 2px 3px 0 #7b4219, inset 2px 2px 0 #fff29b; color: #633612; transform: rotate(6deg); text-shadow: 1px 1px #ffe381; }
+.chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 7px; margin: 4px auto 0; transform: translateY(-10px); }
+.chips span { padding: 5px 9px; border: 2px solid #8d5825; border-radius: 8px; background: #ffe3a6; box-shadow: 2px 3px 0 #9b652d; color: #643b18; font-size: 16px; font-weight: 800; transform: rotate(-2deg); }
+.chips span:nth-child(even) { transform: rotate(2deg); }
+.briefing-controls { position: absolute; right: 13%; bottom: 48px; left: 13%; height: 58px; }
+.button--arrow { position: absolute; top: 0; display: grid; place-items: center; width: 70px; height: 58px; padding: 0; border: 0; background-position: center; background-size: contain; background-repeat: no-repeat; box-shadow: none; font-size: 0; line-height: 1; }
+.button--arrow:first-child { left: -8%; background-image: url("../assets/images/button/panah-kiri.png"); }
+.button--arrow:last-child { right: 0; background-image: url("../assets/images/button/panah-kanan.png"); }
+.button--arrow:disabled { visibility: hidden; }
+.progress { position: absolute; top: 50%; left: 50%; display: flex; gap: 11px; transform: translate(-50%, -50%); isolation: isolate; }
+.progress::before { content: ""; position: absolute; z-index: -1; top: 13px; right: 10px; left: 10px; height: 6px; border: 2px solid #794c25; background: #edbd6e; }
+.progress i { display: grid; place-items: center; width: 30px; height: 30px; border: 2px solid #9c6d39; border-radius: 8px; background: #fff2ce; box-shadow: 2px 3px 0 #a4753f; color: #956c3b; font-size: 18px; font-style: normal; font-weight: 800; transform: rotate(-5deg); }
+.progress i:nth-child(2) { transform: rotate(5deg); }
+.progress i.active { border: 3px solid #123861; background: linear-gradient(#36a1f2, #0862bb); box-shadow: 2px 3px 0 #123861, 0 0 0 2px #fff3c5; color: #fff; transform: rotate(-7deg) scale(1.08); }
+.mission-button { right: 50%; display: block; width: 240px; height: 80px; border: 0; border-radius: 0; background-image: url("../assets/images/button/buka-misi.png"); background-position: center; background-size: contain; background-repeat: no-repeat; box-shadow: none; font-size: 0; white-space: nowrap; }
+.button--arrow.mission-button { background-image: url("../assets/images/button/buka-misi.png"); }
+.paper[data-step="2"] .button--arrow:first-child, .paper[data-step="2"] .progress { display: none; }
+.paper[data-step="2"] .mission-button { right: 50%; transform: translateX(50%); }

@@ -1,0 +1,37 @@
+.button { border: 3px solid var(--outline); color: var(--ink-brown); background: linear-gradient(var(--yellow-light), var(--yellow)); box-shadow: 3px 5px 0 var(--outline), inset 0 0 0 3px #fff5ad; cursor: pointer; font-weight: 800; }
+.button:focus-visible { outline: 4px solid #32acff; outline-offset: 5px; }
+.button:hover { filter: brightness(1.08); }
+.button:active { transform: translateY(3px); box-shadow: 1px 2px 0 var(--outline); }
+.button--round { border-radius: 50%; }
+
+.audio-toggle { position: fixed; z-index: 95; top: 18px; right: max(18px, calc((100vw - 177.7344svh) / 2 + 18px)); width: 68px; height: 68px; padding: 0; border: 0; background: transparent; cursor: pointer; transition: filter .2s, transform .15s; }
+.audio-toggle img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.audio-toggle:hover { filter: brightness(1.1) drop-shadow(0 0 9px #ffe137); transform: scale(1.06) rotate(3deg); }
+.audio-toggle:active { transform: translateY(2px) scale(.96); }
+.audio-toggle:focus-visible { border-radius: 50%; outline: 5px solid #fff; outline-offset: 3px; }
+
+.scene-transition { position: fixed; z-index: 100; inset: 0; display: grid; place-items: center; overflow: hidden; pointer-events: none; clip-path: circle(0 at 50% 50%); background: radial-gradient(circle at center, #ffd928 0 12%, #1179c8 12.5% 24%, #102d50 24.5% 54%, #07182d 55% 100%); }
+.scene-transition::before { content: "\1F50E"; display: grid; place-items: center; width: 150px; aspect-ratio: 1; border: 8px solid #fff4bb; border-radius: 50%; background: #ffca08; box-shadow: 0 0 0 10px #6b330f, 0 18px 30px #0007; font-size: 82px; line-height: 1; transform: rotate(-12deg) scale(.75); }
+.scene-transition.is-covering { clip-path: circle(150% at 50% 50%); transition: clip-path .38s cubic-bezier(.7, 0, .3, 1); }
+.scene-transition.is-covering::before { animation: transition-badge-in .38s cubic-bezier(.2, .8, .2, 1) both; }
+.scene-transition.is-revealing { clip-path: circle(0 at 50% 50%); transition: clip-path .48s .08s cubic-bezier(.7, 0, .3, 1); }
+.scene-transition.is-revealing::before { animation: transition-badge-out .35s ease-in both; }
+
+.scene-entering.landing .landing__scene { animation: landing-scene-in .55s cubic-bezier(.2, .85, .25, 1) both; }
+.scene-entering.onboarding .dialogue { animation: dialogue-scene-in .55s cubic-bezier(.2, .85, .25, 1) both; }
+.scene-entering.editorial-room .editorial-room__stage { animation: room-scene-in .55s cubic-bezier(.2, .85, .25, 1) both; }
+.scene-entering.desk-page .desk-page__stage { animation: room-scene-in .55s cubic-bezier(.2, .85, .25, 1) both; }
+.scene-entering.dissection-room .dissection-room__stage { animation: room-scene-in .55s cubic-bezier(.2, .85, .25, 1) both; }
+.scene-entering.expression-room .expression-room__stage { animation: room-scene-in .55s cubic-bezier(.2, .85, .25, 1) both; }
+.scene-entering.revision-room .revision-room__stage { animation: room-scene-in .55s cubic-bezier(.2, .85, .25, 1) both; }
+.scene-entering.answer-room .answer-room__stage { animation: room-scene-in .55s cubic-bezier(.2, .85, .25, 1) both; }
+.scene-entering.mission-room .mission-room__stage { animation: room-scene-in .55s cubic-bezier(.2, .85, .25, 1) both; }
+.scene-entering.mission-detail .mission-detail__stage { animation: room-scene-in .55s cubic-bezier(.2, .85, .25, 1) both; }
+
+@keyframes blink { 50% { opacity: 0; } }
+@keyframes panel-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes transition-badge-in { from { opacity: 0; transform: rotate(-30deg) scale(.45); } to { opacity: 1; transform: rotate(-12deg) scale(1); } }
+@keyframes transition-badge-out { to { opacity: 0; transform: rotate(20deg) scale(1.35); } }
+@keyframes landing-scene-in { from { opacity: .4; transform: translate(-50%, -50%) scale(.96); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
+@keyframes dialogue-scene-in { from { opacity: 0; transform: translate(45px, -50%) scale(.96); } to { opacity: 1; transform: translate(0, -50%) scale(1); } }
+@keyframes room-scene-in { from { opacity: .45; transform: scale(.97); } to { opacity: 1; transform: scale(1); } }
