@@ -1,0 +1,18 @@
+.mission-complete { position: fixed; z-index: 10; inset: 0; display: grid; place-items: center; overflow: hidden; background: #153664; }
+.mission-complete[hidden] { display: none; }
+.mission-complete__stage { position: relative; width: min(100vw, 177.7344svh); aspect-ratio: 1365 / 768; overflow: hidden; background: url("../assets/images/mission-complete/background.png") center / cover no-repeat; box-shadow: 0 0 70px #05142fc7; }
+.mission-complete__message { position: absolute; z-index: 2; top: 25.5%; left: 24%; width: 52%; min-height: 40%; margin: 0; color: #09285e; font-size: clamp(1rem, 1.65vw, 1.65rem); font-weight: 800; line-height: 1.25; text-align: center; white-space: pre-line; text-wrap: balance; }
+.mission-complete__message.typing::after { content: "▍"; color: #b17821; animation: mission-complete-caret .7s step-end infinite; }
+.mission-complete__primary-actions { position: absolute; z-index: 3; left: 50%; bottom: 3.5%; display: flex; align-items: center; justify-content: center; gap: 2.1%; width: 52%; height: 13%; transform: translateX(-50%); }
+.mission-complete__image-button { width: 46%; height: 100%; padding: 0; border: 0; background: transparent; cursor: pointer; transition: transform .16s ease, filter .16s ease; }
+.mission-complete__image-button img { display: block; width: 100%; height: 100%; object-fit: contain; pointer-events: none; filter: drop-shadow(0 .45vw .35vw #3113067a); }
+.mission-complete__image-button:hover { filter: brightness(1.08) drop-shadow(0 0 .6vw #ffe24c); transform: translateY(-5%) scale(1.025); }
+.mission-complete__image-button:active { transform: translateY(2%) scale(.98); }
+.mission-complete__image-button:focus-visible { border-radius: 999px; outline: .35vw solid #fff; outline-offset: .15vw; }
+.mission-complete__final-modal { position: absolute; z-index: 20; inset: 0; display: grid; place-items: center; }
+.mission-complete__final-modal[hidden] { display: none; }
+.mission-complete__final-backdrop { position: absolute; inset: 0; background: #06152fd1; backdrop-filter: blur(.4vw); }
+.mission-complete__final-modal img { position: relative; z-index: 1; display: block; width: 52%; height: 78%; object-fit: contain; filter: drop-shadow(0 1vw .85vw #020919a8); animation: mission-complete-modal-pop .48s cubic-bezier(.18, 1.35, .38, 1); }
+@keyframes mission-complete-caret { 50% { opacity: 0; } }
+@keyframes mission-complete-modal-pop { 0% { opacity: 0; transform: scale(.62) rotate(-2deg); } 70% { transform: scale(1.04) rotate(.5deg); } 100% { opacity: 1; transform: scale(1); } }
+@media (prefers-reduced-motion: reduce) { .mission-complete__image-button { transition: none; } .mission-complete__final-modal img { animation: none; } }

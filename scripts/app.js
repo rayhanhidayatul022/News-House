@@ -7,6 +7,7 @@ import { initListeningDissection } from "./listening-dissection.js?v=20261105-1"
 import { initAudioManager } from "./components/audio-manager.js?v=20261102-1";
 import { initExpressionRoom } from "./expression-room.js?v=20261101-2";
 import { initRevisionRoom } from "./revision-room.js?v=20261105-2";
+import { createTypewriter } from "./components/typewriter.js";
 
 const app = document.querySelector("#app");
 const pageMarkup = await Promise.all([
@@ -29,7 +30,8 @@ const pageMarkup = await Promise.all([
   fetch("pages/mission-room.html?v=20261102-2").then((response) => response.text()),
   fetch("pages/reading-mission.html?v=20261102-2").then((response) => response.text()),
   fetch("pages/observation-mission.html?v=20261105-2").then((response) => response.text()),
-  fetch("pages/listening-mission.html?v=20261105-1").then((response) => response.text())
+  fetch("pages/listening-mission.html?v=20261105-1").then((response) => response.text()),
+  fetch("pages/mission-complete.html?v=20261105-2").then((response) => response.text())
 ]);
 app.innerHTML = pageMarkup.join("");
 
@@ -48,6 +50,7 @@ const observationRevisionRoom = document.querySelector("#observation-revision-ro
 const listeningRevisionRoom = document.querySelector("#listening-revision-room");
 const answerRoom = document.querySelector("#answer-room");
 const missionRoom = document.querySelector("#mission-room");
+const missionComplete = document.querySelector("#mission-complete");
 const missionDetailPages = [...document.querySelectorAll(".mission-detail")];
 const missionCards = [...missionRoom.querySelectorAll(".mission-card")];
 const revisionLock = revisionRoom.querySelector("#revision-lock");
@@ -110,6 +113,11 @@ const listeningMissionAudioControl = listeningMission.querySelector("#listening-
 const listeningSuccess = listeningMission.querySelector("#listening-success");
 const completeListeningMission = listeningMission.querySelector("#complete-listening-mission");
 const continueListeningMission = listeningSuccess.querySelector(".listening-success__continue");
+const missionCompleteMessage = missionComplete.querySelector("#mission-complete-message");
+const missionCompleteTypewriter = createTypewriter({ delay: 22 });
+const MISSION_COMPLETE_COPY = "Selamat, Detektif! Kamu telah berhasil menyelesaikan seluruh tantangan dan menemukan informasi penting dalam berita.\n\nSekarang, kamu telah menjadi detektif berita yang lebih teliti, kritis, dan percaya diri.\n\nTeruslah membaca, mengamati, dan menyimak. Petualangan belajarmu masih berlanjut!";
+const missionCompleteFinalModal = missionComplete.querySelector("#mission-complete-final-modal");
+let missionCompleteRedirectTimer = null;
 
 const transitionOverlay = document.createElement("div");
 transitionOverlay.className = "scene-transition";
@@ -164,6 +172,12 @@ function hideMissionDetailPages() {
   listeningDissection.pause();
   observationMissionVideo.pause();
   listeningMissionAudio.pause();
+  missionCompleteTypewriter.clear();
+  audioManager.stopEffect("keyboard");
+  if (missionCompleteRedirectTimer !== null) window.clearTimeout(missionCompleteRedirectTimer);
+  missionCompleteRedirectTimer = null;
+  missionCompleteFinalModal.hidden = true;
+  missionComplete.hidden = true;
   observationDissectionRoom.hidden = true;
   observationExpressionRoom.hidden = true;
   observationRevisionRoom.hidden = true;
@@ -513,6 +527,26 @@ function showMissionDetail(pageId) {
   targetPage.querySelector(".mission-detail__back").focus();
 }
 
+function showMissionComplete() {
+  hideMissionDetailPages();
+  landing.hidden = true;
+  onboardingRoot.hidden = true;
+  editorialRoom.hidden = true;
+  deskPages.forEach((page) => { page.hidden = true; });
+  dissectionRoom.hidden = true;
+  expressionRoom.hidden = true;
+  revisionRoom.hidden = true;
+  answerRoom.hidden = true;
+  missionRoom.hidden = true;
+  missionComplete.hidden = false;
+  playSceneEntry(missionComplete);
+  audioManager.playEffect("keyboard");
+  missionCompleteTypewriter.type(missionCompleteMessage, MISSION_COMPLETE_COPY, () => {
+    audioManager.stopEffect("keyboard");
+    missionComplete.querySelector("#mission-complete-choose-desk").focus();
+  });
+}
+
 const goHome = () => changeScene(showLanding);
 const onboarding = initOnboarding({
   onHome: goHome,
@@ -593,7 +627,7 @@ completeReadingMission.addEventListener("click", () => {
 });
 continueReadingMission.addEventListener("click", () => {
   readingSuccess.hidden = true;
-  changeScene(showMissionRoom);
+  changeScene(showMissionComplete);
 });
 completeObservationMission.addEventListener("click", () => {
   observationMissionVideo.pause();
@@ -603,7 +637,7 @@ completeObservationMission.addEventListener("click", () => {
 });
 continueObservationMission.addEventListener("click", () => {
   observationSuccess.hidden = true;
-  changeScene(showMissionRoom);
+  changeScene(showMissionComplete);
 });
 function syncListeningMissionAudio() {
   const isPlaying = !listeningMissionAudio.paused && !listeningMissionAudio.ended;
@@ -633,7 +667,18 @@ completeListeningMission.addEventListener("click", () => {
 });
 continueListeningMission.addEventListener("click", () => {
   listeningSuccess.hidden = true;
-  changeScene(showMissionRoom);
+  changeScene(showMissionComplete);
+});
+missionComplete.querySelector("#mission-complete-choose-desk").addEventListener("click", () => changeScene(showEditorialRoom));
+missionComplete.querySelector("#mission-complete-finish").addEventListener("click", () => {
+  missionCompleteTypewriter.clear();
+  audioManager.stopEffect("keyboard");
+  missionCompleteFinalModal.hidden = false;
+  audioManager.playEffect("success");
+  missionCompleteRedirectTimer = window.setTimeout(() => {
+    missionCompleteRedirectTimer = null;
+    changeScene(showLanding);
+  }, 5000);
 });
 revisionLock.querySelector(".revision-lock__backdrop").addEventListener("click", closeRevisionLock);
 revisionLock.querySelector(".revision-lock__cancel").addEventListener("click", closeRevisionLock);
