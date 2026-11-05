@@ -1,0 +1,19 @@
+.listening-desk__stage { background: url("../assets/images/listening-desk/background.png") center / cover no-repeat; }
+.listening-desk__stage::after, .listening-desk__stage > .desk-page__identity { display: none; }
+.listening-desk__controls { position: absolute; z-index: 5; inset: 0; }
+.listening-desk__audio-button { position: absolute; top: 49%; width: 13%; height: 20%; padding: 0; border: 0; border-radius: 2vw; background: transparent; cursor: pointer; transition: filter .17s ease, transform .14s ease; }
+.listening-desk__audio-button--material { left: 20.8%; }
+.listening-desk__audio-button--example { right: 20.2%; }
+.listening-desk__audio-button:hover { filter: brightness(1.12) drop-shadow(0 0 .8vw #ffe246); transform: translateY(-2%) scale(1.035); }
+.listening-desk__audio-button:active { transform: translateY(2%) scale(.98); }
+.listening-desk__audio-button:focus-visible { outline: .38vw solid #fff; outline-offset: .15vw; }
+.listening-desk__state-icon { position: absolute; top: 48%; left: 54%; display: grid; grid-template-columns: 1fr 1fr; place-items: center; width: 34%; aspect-ratio: 1; box-sizing: border-box; padding: 0 23%; border-radius: 50%; background: #07163cde; box-shadow: 0 .28vw .4vw #02091c99, inset 0 0 0 .18vw #fff; opacity: 0; transform: translate(-50%, -50%) scale(0); transition: transform .16s ease, opacity .16s ease; }
+.listening-desk__audio-button.is-playing .listening-desk__state-icon { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+.listening-desk__state-icon::before, .listening-desk__state-icon::after { content: ""; width: 42%; height: 43%; border-radius: 999px; background: #fff; box-shadow: 0 .08vw .12vw #0209228f; }
+.listening-desk__audio-button.is-playing { filter: brightness(1.1) drop-shadow(0 0 1vw #66e6ff); }
+.listening-desk__dissection { position: absolute; z-index: 6; bottom: 1.4%; left: 50%; width: 31%; height: 12%; padding: 0; border: 0; background: transparent; cursor: pointer; transform: translateX(-50%); transition: filter .17s ease, transform .14s ease; }
+.listening-desk__dissection img { display: block; width: 100%; height: 100%; object-fit: contain; pointer-events: none; filter: drop-shadow(0 .45vw .4vw #32140680); }
+.listening-desk__dissection:hover { filter: brightness(1.08) drop-shadow(0 0 .7vw #ffe246); transform: translate(-50%, -4%) scale(1.025); }
+.listening-desk__dissection:active { transform: translate(-50%, 2%) scale(.98); }
+.listening-desk__dissection:focus-visible { border-radius: 999px; outline: .38vw solid #fff; outline-offset: .15vw; }
+@media (prefers-reduced-motion: reduce) { .listening-desk__audio-button, .listening-desk__state-icon, .listening-desk__dissection { transition: none; } }

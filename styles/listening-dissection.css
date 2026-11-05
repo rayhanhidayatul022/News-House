@@ -1,0 +1,19 @@
+.listening-dissection { position: fixed; inset: 0; z-index: 6; display: grid; place-items: center; overflow: hidden; background: #653117; }
+.listening-dissection[hidden] { display: none; }
+.listening-dissection__stage { position: relative; width: min(100vw, 177.7344svh); aspect-ratio: 1365 / 768; overflow: hidden; background: url("../assets/images/listening-dissection/background.png") center / cover no-repeat; box-shadow: 0 0 70px #2d110bcc; }
+.listening-dissection__home, .listening-dissection__back { position: absolute; z-index: 10; left: 1.6%; width: 5.1%; aspect-ratio: 1; height: auto; padding: 0; border: 0; box-shadow: none; font-size: 0; }
+.listening-dissection__home { top: 2%; border-radius: 50%; background: url("../assets/images/button/home.png") center / contain no-repeat; }
+.listening-dissection__back { bottom: 2%; background: url("../assets/images/button/panah-kiri.png") center / contain no-repeat; }
+.listening-dissection__play { position: absolute; z-index: 5; top: 42%; left: 50%; width: 11%; height: 24%; padding: 0; border: 0; background: transparent; cursor: pointer; transform: translate(-50%, -50%); transition: filter .17s, transform .14s; }
+.listening-dissection__play > img { display: block; width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+.listening-dissection__play:hover { filter: brightness(1.08) drop-shadow(0 0 .8vw #ffe34a); transform: translate(-50%, -53%) scale(1.035); }
+.listening-dissection__play:active { transform: translate(-50%, -48%) scale(.98); }
+.listening-dissection__play:focus-visible, .listening-dissection__expression:focus-visible { border-radius: 999px; outline: .38vw solid #fff; outline-offset: .15vw; }
+.listening-dissection__pause-icon { position: absolute; top: 39%; left: 50%; display: grid; grid-template-columns: 1fr 1fr; place-items: center; width: 62%; aspect-ratio: 1; box-sizing: border-box; padding: 0 24%; border-radius: 50%; background: #ffcd12; opacity: 0; transform: translate(-50%, -50%) scale(.7); }
+.listening-dissection__pause-icon::before, .listening-dissection__pause-icon::after { content: ""; width: 44%; height: 48%; border-radius: 999px; background: #071850; }
+.listening-dissection__play.is-playing .listening-dissection__pause-icon { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+.listening-dissection__expression { position: absolute; z-index: 6; bottom: .8%; left: 50%; width: 40%; height: 14%; padding: 0; border: 0; background: transparent; cursor: pointer; transform: translateX(-50%); transition: filter .17s, transform .14s; }
+.listening-dissection__expression img { display: block; width: 100%; height: 100%; object-fit: contain; pointer-events: none; filter: drop-shadow(0 .45vw .4vw #35140780); }
+.listening-dissection__expression:hover { filter: brightness(1.08) drop-shadow(0 0 .7vw #ffe34a); transform: translate(-50%, -4%) scale(1.025); }
+.listening-dissection__expression:active { transform: translate(-50%, 2%) scale(.98); }
+@media (prefers-reduced-motion: reduce) { .listening-dissection__play, .listening-dissection__expression { transition: none; } }

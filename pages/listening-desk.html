@@ -1,8 +1,17 @@
 <section class="desk-page desk-page--listen" id="listening-desk" aria-label="Meja Simak" hidden>
-  <div class="desk-page__stage">
+  <div class="desk-page__stage listening-desk__stage">
     <button class="button button--round desk-page__home" type="button" aria-label="Kembali ke beranda" title="Beranda"><span class="sr-only">Beranda</span></button>
     <button class="button desk-page__back" type="button" aria-label="Kembali ke Ruang Redaksi" title="Kembali ke Ruang Redaksi"><span class="sr-only">Kembali ke Ruang Redaksi</span></button>
     <img class="desk-page__identity" src="assets/images/editorial-room/listening-desk.png" alt="Meja Simak — Aku ingin mendengarkan">
-    <div class="desk-page__workspace" aria-label="Area modul Meja Simak"></div>
+    <div class="listening-desk__controls" aria-label="Pilihan audio Meja Simak">
+      <button class="listening-desk__audio-button listening-desk__audio-button--material" type="button" data-listening-track="material" aria-label="Putar audio materi" aria-pressed="false"><span class="listening-desk__state-icon" aria-hidden="true"></span></button>
+      <button class="listening-desk__audio-button listening-desk__audio-button--example" type="button" data-listening-track="example" aria-label="Putar audio contoh" aria-pressed="false"><span class="listening-desk__state-icon" aria-hidden="true"></span></button>
+    </div>
+    <p class="listening-desk__status sr-only" aria-live="polite">Pilih audio materi atau contoh untuk mulai mendengarkan.</p>
+    <audio id="listening-material-audio" preload="metadata"><source src="assets/audio/listening-materi.mp3" type="audio/mpeg"></audio>
+    <audio id="listening-example-audio" preload="metadata"><source src="assets/audio/listening-contoh.mp3" type="audio/mpeg"></audio>
+    <button class="listening-desk__dissection" id="listening-dissection-button" type="button" aria-label="Mari ke Ruang Bedah Meja Simak">
+      <img src="assets/images/listening-desk/dissection-room-button.png" alt="Mari ke Ruang Bedah">
+    </button>
   </div>
 </section>

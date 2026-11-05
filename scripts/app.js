@@ -2,6 +2,8 @@ import { initLanding } from "./landing.js";
 import { initOnboarding } from "./onboarding.js?v=20261102-1";
 import { initReadingDesk } from "./reading-desk.js?v=20261101-2";
 import { initObservationDesk } from "./observation-desk.js?v=20261105-2";
+import { initListeningDesk } from "./listening-desk.js?v=20261105-1";
+import { initListeningDissection } from "./listening-dissection.js?v=20261105-1";
 import { initAudioManager } from "./components/audio-manager.js?v=20261102-1";
 import { initExpressionRoom } from "./expression-room.js?v=20261101-2";
 import { initRevisionRoom } from "./revision-room.js?v=20261105-2";
@@ -13,13 +15,16 @@ const pageMarkup = await Promise.all([
   fetch("pages/editorial-room.html").then((response) => response.text()),
   fetch("pages/reading-desk.html").then((response) => response.text()),
   fetch("pages/observation-desk.html?v=20261105-5").then((response) => response.text()),
-  fetch("pages/listening-desk.html").then((response) => response.text()),
+  fetch("pages/listening-desk.html?v=20261105-1").then((response) => response.text()),
   fetch("pages/dissection-room.html").then((response) => response.text()),
   fetch("pages/observation-dissection.html?v=20261105-3").then((response) => response.text()),
+  fetch("pages/listening-dissection.html?v=20261105-1").then((response) => response.text()),
   fetch("pages/expression-room.html?v=20261101-2").then((response) => response.text()),
   fetch("pages/observation-expression.html?v=20261105-1").then((response) => response.text()),
+  fetch("pages/listening-expression.html?v=20261105-1").then((response) => response.text()),
   fetch("pages/revision-room.html?v=20261101-4").then((response) => response.text()),
   fetch("pages/observation-revision.html?v=20261105-1").then((response) => response.text()),
+  fetch("pages/listening-revision.html?v=20261105-1").then((response) => response.text()),
   fetch("pages/answer-room.html?v=20261101-2").then((response) => response.text()),
   fetch("pages/mission-room.html?v=20261102-2").then((response) => response.text()),
   fetch("pages/reading-mission.html?v=20261102-2").then((response) => response.text()),
@@ -34,10 +39,13 @@ const editorialRoom = document.querySelector("#editorial-room");
 const deskPages = [...document.querySelectorAll(".desk-page")];
 const dissectionRoom = document.querySelector("#dissection-room");
 const observationDissectionRoom = document.querySelector("#observation-dissection");
+const listeningDissectionRoom = document.querySelector("#listening-dissection");
 const expressionRoom = document.querySelector("#expression-room");
 const observationExpressionRoom = document.querySelector("#observation-expression-room");
+const listeningExpressionRoom = document.querySelector("#listening-expression-room");
 const revisionRoom = document.querySelector("#revision-room");
 const observationRevisionRoom = document.querySelector("#observation-revision-room");
+const listeningRevisionRoom = document.querySelector("#listening-revision-room");
 const answerRoom = document.querySelector("#answer-room");
 const missionRoom = document.querySelector("#mission-room");
 const missionDetailPages = [...document.querySelectorAll(".mission-detail")];
@@ -50,6 +58,10 @@ const observationRevisionLock = observationRevisionRoom.querySelector("#observat
 const observationRevisionLockForm = observationRevisionRoom.querySelector("#observation-revision-lock-form");
 const observationRevisionLockInput = observationRevisionRoom.querySelector("#observation-revision-lock-password");
 const observationRevisionLockError = observationRevisionRoom.querySelector("#observation-revision-lock-error");
+const listeningRevisionLock = listeningRevisionRoom.querySelector("#listening-revision-lock");
+const listeningRevisionLockForm = listeningRevisionRoom.querySelector("#listening-revision-lock-form");
+const listeningRevisionLockInput = listeningRevisionRoom.querySelector("#listening-revision-lock-password");
+const listeningRevisionLockError = listeningRevisionRoom.querySelector("#listening-revision-lock-error");
 const readingDesk = initReadingDesk({
   onOpenDissection: () => changeScene(() => showDissectionRoom("reading-desk"))
 });
@@ -58,15 +70,29 @@ const observationDesk = initObservationDesk({
   onOpenDissection: () => changeScene(() => showObservationDissection("observation-desk")),
   onOpenExampleDissection: () => changeScene(() => showObservationDissection("observation-example"))
 });
+const listeningDesk = initListeningDesk({
+  onOpenDissection: () => changeScene(showListeningDissection)
+});
+const listeningDissection = initListeningDissection({
+  onOpenExpression: () => changeScene(showListeningExpressionRoom)
+});
 const expressionState = initExpressionRoom();
 const observationExpressionState = initExpressionRoom({
   root: observationExpressionRoom,
   storageKey: "news-house.observation-expression-answers.v1"
 });
+const listeningExpressionState = initExpressionRoom({
+  root: listeningExpressionRoom,
+  storageKey: "news-house.listening-expression-answers.v1"
+});
 const revisionState = initRevisionRoom();
 const observationRevisionState = initRevisionRoom({
   root: observationRevisionRoom,
   storageKey: "news-house.observation-expression-answers.v1"
+});
+const listeningRevisionState = initRevisionRoom({
+  root: listeningRevisionRoom,
+  storageKey: "news-house.listening-expression-answers.v1"
 });
 const audioManager = initAudioManager();
 const readingMission = document.querySelector("#reading-mission");
@@ -129,10 +155,14 @@ function refreshMissionCards() {
 function hideMissionDetailPages() {
   missionDetailPages.forEach((page) => { page.hidden = true; });
   observationDissectionVideo.pause();
+  listeningDissection.pause();
   observationMissionVideo.pause();
   observationDissectionRoom.hidden = true;
   observationExpressionRoom.hidden = true;
   observationRevisionRoom.hidden = true;
+  listeningDissectionRoom.hidden = true;
+  listeningExpressionRoom.hidden = true;
+  listeningRevisionRoom.hidden = true;
 }
 
 function playSceneEntry(scene) {
@@ -249,6 +279,22 @@ function showObservationDissection(sourceDesk = lastObservationDissectionDesk) {
   observationDissectionRoom.querySelector(".observation-dissection__back").focus();
 }
 
+function showListeningDissection() {
+  hideMissionDetailPages();
+  landing.hidden = true;
+  onboardingRoot.hidden = true;
+  editorialRoom.hidden = true;
+  deskPages.forEach((page) => { page.hidden = true; });
+  dissectionRoom.hidden = true;
+  expressionRoom.hidden = true;
+  revisionRoom.hidden = true;
+  answerRoom.hidden = true;
+  missionRoom.hidden = true;
+  listeningDissectionRoom.hidden = false;
+  playSceneEntry(listeningDissectionRoom);
+  listeningDissectionRoom.querySelector(".listening-dissection__back").focus();
+}
+
 function showExpressionRoom() {
   hideMissionDetailPages();
   landing.hidden = true;
@@ -280,6 +326,23 @@ function showObservationExpressionRoom() {
   observationExpressionState.refresh();
   playSceneEntry(observationExpressionRoom);
   observationExpressionRoom.querySelector("input").focus();
+}
+
+function showListeningExpressionRoom() {
+  hideMissionDetailPages();
+  landing.hidden = true;
+  onboardingRoot.hidden = true;
+  editorialRoom.hidden = true;
+  deskPages.forEach((page) => { page.hidden = true; });
+  dissectionRoom.hidden = true;
+  expressionRoom.hidden = true;
+  revisionRoom.hidden = true;
+  answerRoom.hidden = true;
+  missionRoom.hidden = true;
+  listeningExpressionRoom.hidden = false;
+  listeningExpressionState.refresh();
+  playSceneEntry(listeningExpressionRoom);
+  listeningExpressionRoom.querySelector("input").focus();
 }
 
 function showRevisionRoom() {
@@ -319,6 +382,25 @@ function showObservationRevisionRoom() {
   observationRevisionRoom.querySelector(".revision-room__back").focus();
 }
 
+function showListeningRevisionRoom() {
+  lastRevisionType = "listening";
+  hideMissionDetailPages();
+  landing.hidden = true;
+  onboardingRoot.hidden = true;
+  editorialRoom.hidden = true;
+  deskPages.forEach((page) => { page.hidden = true; });
+  dissectionRoom.hidden = true;
+  expressionRoom.hidden = true;
+  revisionRoom.hidden = true;
+  answerRoom.hidden = true;
+  missionRoom.hidden = true;
+  closeListeningRevisionLock();
+  listeningRevisionState.refresh();
+  listeningRevisionRoom.hidden = false;
+  playSceneEntry(listeningRevisionRoom);
+  listeningRevisionRoom.querySelector(".revision-room__back").focus();
+}
+
 function openRevisionLock() {
   revisionLock.hidden = false;
   revisionLockInput.value = "";
@@ -351,6 +433,23 @@ function closeObservationRevisionLock() {
   observationRevisionLockInput.removeAttribute("aria-invalid");
   observationRevisionLockError.textContent = "";
   observationRevisionLockForm.classList.remove("is-wrong");
+}
+
+function openListeningRevisionLock() {
+  listeningRevisionLock.hidden = false;
+  listeningRevisionLockInput.value = "";
+  listeningRevisionLockInput.removeAttribute("aria-invalid");
+  listeningRevisionLockError.textContent = "";
+  listeningRevisionLockForm.classList.remove("is-wrong");
+  listeningRevisionLockInput.focus();
+}
+
+function closeListeningRevisionLock() {
+  listeningRevisionLock.hidden = true;
+  listeningRevisionLockInput.value = "";
+  listeningRevisionLockInput.removeAttribute("aria-invalid");
+  listeningRevisionLockError.textContent = "";
+  listeningRevisionLockForm.classList.remove("is-wrong");
 }
 
 function requestAnswerRoom() {
@@ -421,10 +520,12 @@ document.querySelectorAll("[data-desk-target]").forEach((button) => {
 deskPages.forEach((page) => {
   page.querySelector(".desk-page__home").addEventListener("click", () => {
     if (page.id.startsWith("observation-")) observationDesk.pause();
+    if (page.id === "listening-desk") listeningDesk.pause();
     goHome();
   });
   page.querySelector(".desk-page__back").addEventListener("click", () => {
     if (page.id.startsWith("observation-")) observationDesk.pause();
+    if (page.id === "listening-desk") listeningDesk.pause();
     changeScene(page.id === "observation-example" ? () => showDeskPage("observation-desk") : showEditorialRoom);
   });
 });
@@ -434,20 +535,31 @@ dissectionRoom.querySelector("#expression-room-button").addEventListener("click"
 observationDissectionRoom.querySelector(".observation-dissection__home").addEventListener("click", goHome);
 observationDissectionRoom.querySelector(".observation-dissection__back").addEventListener("click", () => changeScene(() => showDeskPage(lastObservationDissectionDesk)));
 observationDissectionRoom.querySelector("#observation-expression-button").addEventListener("click", () => changeScene(showObservationExpressionRoom));
+listeningDissectionRoom.querySelector(".listening-dissection__home").addEventListener("click", goHome);
+listeningDissectionRoom.querySelector(".listening-dissection__back").addEventListener("click", () => changeScene(() => showDeskPage("listening-desk")));
 expressionRoom.querySelector(".expression-room__home").addEventListener("click", goHome);
 expressionRoom.querySelector(".expression-room__back").addEventListener("click", () => changeScene(showDissectionRoom));
 expressionRoom.querySelector("#revision-room-button").addEventListener("click", () => changeScene(showRevisionRoom));
 observationExpressionRoom.querySelector(".expression-room__home").addEventListener("click", goHome);
 observationExpressionRoom.querySelector(".expression-room__back").addEventListener("click", () => changeScene(() => showObservationDissection(lastObservationDissectionDesk)));
 observationExpressionRoom.querySelector("#observation-revision-room-button").addEventListener("click", () => changeScene(showObservationRevisionRoom));
+listeningExpressionRoom.querySelector(".expression-room__home").addEventListener("click", goHome);
+listeningExpressionRoom.querySelector(".expression-room__back").addEventListener("click", () => changeScene(showListeningDissection));
+listeningExpressionRoom.querySelector("#listening-revision-room-button").addEventListener("click", () => changeScene(showListeningRevisionRoom));
 revisionRoom.querySelector(".revision-room__home").addEventListener("click", goHome);
 revisionRoom.querySelector(".revision-room__back").addEventListener("click", () => changeScene(showExpressionRoom));
 revisionRoom.querySelector("#show-answer-button").addEventListener("click", openRevisionLock);
 observationRevisionRoom.querySelector(".revision-room__home").addEventListener("click", goHome);
 observationRevisionRoom.querySelector(".revision-room__back").addEventListener("click", () => changeScene(showObservationExpressionRoom));
 observationRevisionRoom.querySelector("#observation-show-answer-button").addEventListener("click", openObservationRevisionLock);
+listeningRevisionRoom.querySelector(".revision-room__home").addEventListener("click", goHome);
+listeningRevisionRoom.querySelector(".revision-room__back").addEventListener("click", () => changeScene(showListeningExpressionRoom));
+listeningRevisionRoom.querySelector("#listening-show-answer-button").addEventListener("click", openListeningRevisionLock);
 answerRoom.querySelector(".answer-room__home").addEventListener("click", goHome);
-answerRoom.querySelector(".answer-room__back").addEventListener("click", () => changeScene(lastRevisionType === "observation" ? showObservationRevisionRoom : showRevisionRoom));
+answerRoom.querySelector(".answer-room__back").addEventListener("click", () => {
+  const target = lastRevisionType === "listening" ? showListeningRevisionRoom : lastRevisionType === "observation" ? showObservationRevisionRoom : showRevisionRoom;
+  changeScene(target);
+});
 answerRoom.querySelector("#continue-mission-button").addEventListener("click", () => changeScene(showMissionRoom));
 missionRoom.querySelector(".mission-room__home").addEventListener("click", goHome);
 missionRoom.querySelector(".mission-room__back").addEventListener("click", () => changeScene(showEditorialRoom));
@@ -520,9 +632,26 @@ observationRevisionLockForm.addEventListener("submit", (event) => {
   observationRevisionLockForm.classList.add("is-wrong");
   observationRevisionLockInput.select();
 });
+listeningRevisionLock.querySelector(".revision-lock__backdrop").addEventListener("click", closeListeningRevisionLock);
+listeningRevisionLock.querySelector(".revision-lock__cancel").addEventListener("click", closeListeningRevisionLock);
+listeningRevisionLockForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  if (listeningRevisionLockInput.value === "BedahSatu") {
+    closeListeningRevisionLock();
+    changeScene(showAnswerRoom);
+    return;
+  }
+  listeningRevisionLockError.textContent = "Salah";
+  listeningRevisionLockInput.setAttribute("aria-invalid", "true");
+  listeningRevisionLockForm.classList.remove("is-wrong");
+  void listeningRevisionLockForm.offsetWidth;
+  listeningRevisionLockForm.classList.add("is-wrong");
+  listeningRevisionLockInput.select();
+});
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && !revisionLock.hidden) closeRevisionLock();
   if (event.key === "Escape" && !observationRevisionLock.hidden) closeObservationRevisionLock();
+  if (event.key === "Escape" && !listeningRevisionLock.hidden) closeListeningRevisionLock();
   if (event.key === "Escape" && !readingSuccess.hidden) {
     readingSuccess.hidden = true;
     completeReadingMission.focus();
