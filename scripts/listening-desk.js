@@ -1,4 +1,4 @@
-export function initListeningDesk({ onOpenDissection } = {}) {
+export function initListeningDesk({ onOpenDissection, onTrackOpen } = {}) {
   const root = document.querySelector("#listening-desk");
   const status = root.querySelector(".listening-desk__status");
   const tracks = {
@@ -25,6 +25,7 @@ export function initListeningDesk({ onOpenDissection } = {}) {
   async function toggle(key) {
     const track = tracks[key];
     if (!track) return;
+    onTrackOpen?.(key);
     if (!track.audio.paused && !track.audio.ended) {
       track.audio.pause();
       status.textContent = `Audio ${track.label} dipause.`;

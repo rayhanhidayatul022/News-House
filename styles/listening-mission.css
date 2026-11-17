@@ -26,4 +26,5 @@
 .listening-mission__audio-control.is-playing .listening-mission__pause-icon { display: flex; }
 .listening-mission__audio-control.is-playing .listening-mission__audio-label { font-size: 0; }
 .listening-mission__audio-control.is-playing .listening-mission__audio-label::before { content: "JEDA AUDIO"; font-size: clamp(.7rem, 1.35vw, 1.35rem); }
+.listening-mission__source { position: absolute; z-index: 6; top: 62%; left: 17.5%; width: 33%; }
 @media (prefers-reduced-motion: reduce) { .listening-mission__upload, .listening-mission__complete, .listening-mission__audio-control { transition: none; } }

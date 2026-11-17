@@ -2,7 +2,7 @@ import { initLanding } from "./landing.js";
 import { initOnboarding } from "./onboarding.js?v=20261102-1";
 import { initReadingDesk } from "./reading-desk.js?v=20261101-2";
 import { initObservationDesk } from "./observation-desk.js?v=20261105-2";
-import { initListeningDesk } from "./listening-desk.js?v=20261105-1";
+import { initListeningDesk } from "./listening-desk.js?v=20261116-1";
 import { initListeningDissection } from "./listening-dissection.js?v=20261105-1";
 import { initAudioManager } from "./components/audio-manager.js?v=20261102-1";
 import { initExpressionRoom } from "./expression-room.js?v=20261101-2";
@@ -74,7 +74,8 @@ const observationDesk = initObservationDesk({
   onOpenExampleDissection: () => changeScene(() => showObservationDissection("observation-example"))
 });
 const listeningDesk = initListeningDesk({
-  onOpenDissection: () => changeScene(showListeningDissection)
+  onOpenDissection: () => changeScene(showListeningDissection),
+  onTrackOpen: (track) => markChapterStep("listening-desk", `listening-${track}`)
 });
 const listeningDissection = initListeningDissection({
   onOpenExpression: () => changeScene(showListeningExpressionRoom)
@@ -126,43 +127,59 @@ document.body.append(transitionOverlay);
 
 let isTransitioning = false;
 let pendingScene = null;
-const MISSION_PROGRESS_KEY = "newsHouseVisitedDesks";
-const visitedDesksMemory = new Set();
+const MISSION_PROGRESS_KEY = "newsHouseChapterProgress.v1";
+const CHAPTER_REQUIREMENTS = {
+  "reading-desk": ["reading-material", "reading-dissection", "reading-expression", "reading-revision", "reading-answer"],
+  "observation-desk": ["observation-material", "observation-example", "observation-dissection", "observation-expression", "observation-revision", "observation-answer"],
+  "listening-desk": ["listening-material", "listening-example", "listening-dissection", "listening-expression", "listening-revision", "listening-answer"]
+};
+const chapterProgressMemory = Object.fromEntries(Object.keys(CHAPTER_REQUIREMENTS).map((chapter) => [chapter, new Set()]));
 let lastDissectionDesk = "reading-desk";
 let lastObservationDissectionDesk = "observation-desk";
 let lastRevisionType = "reading";
 const observationDissectionVideo = observationDissectionRoom.querySelector("#observation-dissection-video");
 
-function readVisitedDesks() {
+function readChapterProgress() {
   try {
-    const value = JSON.parse(window.localStorage.getItem(MISSION_PROGRESS_KEY) ?? "[]");
-    return new Set([...(Array.isArray(value) ? value : []), ...visitedDesksMemory]);
+    const stored = JSON.parse(window.localStorage.getItem(MISSION_PROGRESS_KEY) ?? "{}");
+    return Object.fromEntries(Object.keys(CHAPTER_REQUIREMENTS).map((chapter) => [
+      chapter,
+      new Set([...(Array.isArray(stored?.[chapter]) ? stored[chapter] : []), ...chapterProgressMemory[chapter]])
+    ]));
   } catch {
-    return new Set(visitedDesksMemory);
+    return Object.fromEntries(Object.entries(chapterProgressMemory).map(([chapter, steps]) => [chapter, new Set(steps)]));
   }
 }
 
-function markDeskVisited(pageId) {
-  const visited = readVisitedDesks();
-  visited.add(pageId);
-  visitedDesksMemory.add(pageId);
+function markChapterStep(chapter, step) {
+  if (!CHAPTER_REQUIREMENTS[chapter]?.includes(step)) return;
+  const progress = readChapterProgress();
+  progress[chapter].add(step);
+  chapterProgressMemory[chapter].add(step);
   try {
-    window.localStorage.setItem(MISSION_PROGRESS_KEY, JSON.stringify([...visited]));
+    window.localStorage.setItem(MISSION_PROGRESS_KEY, JSON.stringify(
+      Object.fromEntries(Object.entries(progress).map(([chapterKey, steps]) => [chapterKey, [...steps]]))
+    ));
   } catch {
-    // Desk navigation must still work when browser storage is unavailable.
+    // Chapter progress must still work when browser storage is unavailable.
   }
+  refreshMissionCards();
 }
 
 function refreshMissionCards() {
-  const visited = readVisitedDesks();
+  const progress = readChapterProgress();
   missionCards.forEach((card) => {
-    const unlocked = visited.has(card.dataset.missionDesk);
+    const chapter = card.dataset.missionDesk;
+    const requirements = CHAPTER_REQUIREMENTS[chapter] ?? [];
+    const completedSteps = progress[chapter] ?? new Set();
+    const unlocked = requirements.length > 0 && requirements.every((step) => completedSteps.has(step));
+    const remaining = requirements.filter((step) => !completedSteps.has(step)).length;
     const image = card.querySelector("img");
     card.dataset.unlocked = String(unlocked);
     card.setAttribute("aria-disabled", String(!unlocked));
     card.classList.toggle("is-unlocked", unlocked);
     image.src = unlocked ? image.dataset.activeSrc : image.dataset.lockedSrc;
-    card.setAttribute("aria-label", `${unlocked ? "Buka" : "Terkunci:"} ${image.alt}`);
+    card.setAttribute("aria-label", unlocked ? `Buka ${image.alt}` : `${image.alt} terkunci. Masih ada ${remaining} bagian yang belum dibuka.`);
   });
 }
 
@@ -253,7 +270,9 @@ function showDeskPage(pageId) {
   if (pageId === "reading-desk") readingDesk.reset();
   if (pageId === "observation-desk") observationDesk.reset();
   if (pageId === "observation-example") observationDesk.resetExample();
-  if (pageId !== "observation-example") markDeskVisited(pageId);
+  if (pageId === "reading-desk") markChapterStep("reading-desk", "reading-material");
+  if (pageId === "observation-desk") markChapterStep("observation-desk", "observation-material");
+  if (pageId === "observation-example") markChapterStep("observation-desk", "observation-example");
   hideMissionDetailPages();
   editorialRoom.hidden = true;
   dissectionRoom.hidden = true;
@@ -269,6 +288,7 @@ function showDeskPage(pageId) {
 
 function showDissectionRoom(sourceDesk = lastDissectionDesk) {
   lastDissectionDesk = sourceDesk;
+  markChapterStep("reading-desk", "reading-dissection");
   hideMissionDetailPages();
   landing.hidden = true;
   onboardingRoot.hidden = true;
@@ -285,6 +305,7 @@ function showDissectionRoom(sourceDesk = lastDissectionDesk) {
 
 function showObservationDissection(sourceDesk = lastObservationDissectionDesk) {
   lastObservationDissectionDesk = sourceDesk;
+  markChapterStep("observation-desk", "observation-dissection");
   hideMissionDetailPages();
   landing.hidden = true;
   onboardingRoot.hidden = true;
@@ -301,6 +322,7 @@ function showObservationDissection(sourceDesk = lastObservationDissectionDesk) {
 }
 
 function showListeningDissection() {
+  markChapterStep("listening-desk", "listening-dissection");
   hideMissionDetailPages();
   landing.hidden = true;
   onboardingRoot.hidden = true;
@@ -317,6 +339,7 @@ function showListeningDissection() {
 }
 
 function showExpressionRoom() {
+  markChapterStep("reading-desk", "reading-expression");
   hideMissionDetailPages();
   landing.hidden = true;
   onboardingRoot.hidden = true;
@@ -333,6 +356,7 @@ function showExpressionRoom() {
 }
 
 function showObservationExpressionRoom() {
+  markChapterStep("observation-desk", "observation-expression");
   hideMissionDetailPages();
   landing.hidden = true;
   onboardingRoot.hidden = true;
@@ -350,6 +374,7 @@ function showObservationExpressionRoom() {
 }
 
 function showListeningExpressionRoom() {
+  markChapterStep("listening-desk", "listening-expression");
   hideMissionDetailPages();
   landing.hidden = true;
   onboardingRoot.hidden = true;
@@ -368,6 +393,7 @@ function showListeningExpressionRoom() {
 
 function showRevisionRoom() {
   lastRevisionType = "reading";
+  markChapterStep("reading-desk", "reading-revision");
   hideMissionDetailPages();
   landing.hidden = true;
   onboardingRoot.hidden = true;
@@ -386,6 +412,7 @@ function showRevisionRoom() {
 
 function showObservationRevisionRoom() {
   lastRevisionType = "observation";
+  markChapterStep("observation-desk", "observation-revision");
   hideMissionDetailPages();
   landing.hidden = true;
   onboardingRoot.hidden = true;
@@ -405,6 +432,7 @@ function showObservationRevisionRoom() {
 
 function showListeningRevisionRoom() {
   lastRevisionType = "listening";
+  markChapterStep("listening-desk", "listening-revision");
   hideMissionDetailPages();
   landing.hidden = true;
   onboardingRoot.hidden = true;
@@ -479,6 +507,7 @@ function requestAnswerRoom() {
 }
 
 function showAnswerRoom() {
+  markChapterStep(`${lastRevisionType}-desk`, `${lastRevisionType}-answer`);
   hideMissionDetailPages();
   landing.hidden = true;
   onboardingRoot.hidden = true;

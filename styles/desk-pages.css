@@ -15,10 +15,11 @@
 
 .desk-page--read .desk-page__stage { background-image: url("../assets/images/reading-desk/background.png"); }
 .desk-page--read .reading-desk__title { top: .5%; width: 39%; height: 19%; }
-.reading-desk__content { position: absolute; z-index: 1; top: 13%; right: 4%; bottom: 15.5%; left: 4%; }
+.reading-desk__content { position: absolute; z-index: 1; top: 13%; right: 4%; bottom: 20%; left: 4%; }
 .reading-desk__view { position: absolute; inset: 0; display: grid; place-items: center; }
 .reading-desk__view[hidden] { display: none; }
 .reading-desk__view img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 10px 9px #10294d55); }
+.reading-desk__view .media-reference { position: absolute; z-index: 3; bottom: -8%; left: 50%; width: 48%; transform: translateX(-50%); }
 .reading-desk__view.is-appearing { animation: reading-card-in .35s cubic-bezier(.2, .85, .25, 1) both; }
 .reading-desk__actions { position: absolute; z-index: 4; bottom: .8%; left: 50%; display: flex; justify-content: center; align-items: stretch; gap: 2%; width: 54%; height: 13.5%; transform: translateX(-50%); }
 .reading-desk__toggle, .reading-desk__dissection { position: relative; z-index: 1; height: 100%; padding: 0; border: 0; background: transparent; cursor: pointer; pointer-events: auto; touch-action: manipulation; transition: filter .2s, transform .15s; }

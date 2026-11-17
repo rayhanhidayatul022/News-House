@@ -16,4 +16,7 @@
 .listening-desk__dissection:hover { filter: brightness(1.08) drop-shadow(0 0 .7vw #ffe246); transform: translate(-50%, -4%) scale(1.025); }
 .listening-desk__dissection:active { transform: translate(-50%, 2%) scale(.98); }
 .listening-desk__dissection:focus-visible { border-radius: 999px; outline: .38vw solid #fff; outline-offset: .15vw; }
+.listening-desk__source { position: absolute; z-index: 6; top: 70.5%; width: 26%; }
+.listening-desk__source--material { left: 14.2%; }
+.listening-desk__source--example { right: 13.8%; }
 @media (prefers-reduced-motion: reduce) { .listening-desk__audio-button, .listening-desk__state-icon, .listening-desk__dissection { transition: none; } }

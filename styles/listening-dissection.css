@@ -12,6 +12,7 @@
 .listening-dissection__pause-icon { position: absolute; top: 39%; left: 50%; display: grid; grid-template-columns: 1fr 1fr; place-items: center; width: 62%; aspect-ratio: 1; box-sizing: border-box; padding: 0 24%; border-radius: 50%; background: #ffcd12; opacity: 0; transform: translate(-50%, -50%) scale(.7); }
 .listening-dissection__pause-icon::before, .listening-dissection__pause-icon::after { content: ""; width: 44%; height: 48%; border-radius: 999px; background: #071850; }
 .listening-dissection__play.is-playing .listening-dissection__pause-icon { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+.listening-dissection__source { position: absolute; z-index: 6; top: 60%; left: 50%; width: 30%; transform: translateX(-50%); }
 .listening-dissection__expression { position: absolute; z-index: 6; bottom: .8%; left: 50%; width: 40%; height: 14%; padding: 0; border: 0; background: transparent; cursor: pointer; transform: translateX(-50%); transition: filter .17s, transform .14s; }
 .listening-dissection__expression img { display: block; width: 100%; height: 100%; object-fit: contain; pointer-events: none; filter: drop-shadow(0 .45vw .4vw #35140780); }
 .listening-dissection__expression:hover { filter: brightness(1.08) drop-shadow(0 0 .7vw #ffe34a); transform: translate(-50%, -4%) scale(1.025); }

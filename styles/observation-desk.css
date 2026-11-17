@@ -10,6 +10,7 @@
 .observation-desk__screen::before { left: .65%; }
 .observation-desk__screen::after { right: .65%; }
 .observation-desk__screen video { display: block; width: 100%; height: 100%; box-sizing: border-box; border: .18vw solid #030d2c; border-radius: 11px; object-fit: contain; background: #020817; box-shadow: inset 0 0 1vw #000, 0 0 0 .18vw #62dfff; clip-path: inset(0 round 10px); }
+.observation-desk__player .media-reference { position: absolute; z-index: 5; top: 102.5%; left: 50%; width: 58%; transform: translateX(-50%); }
 .observation-desk__actions { position: absolute; z-index: 5; bottom: 2%; left: 50%; display: flex; justify-content: center; align-items: center; gap: 2%; width: 50%; height: 12%; transform: translateX(-50%); }
 .observation-desk__actions--single { gap: 0; }
 .observation-desk__button { display: grid; place-items: center; height: 100%; padding: 0; border: 0; background: transparent; cursor: pointer; transition: transform .15s, filter .18s; }
