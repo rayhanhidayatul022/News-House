@@ -1,9 +1,12 @@
 import { createTypewriter } from "./components/typewriter.js";
 
-const targets = ["Menemukan unsur 5W+1H", "Menganalisis informasi penting dalam berita"];
+const targets = [
+  "Mengidentifikasi unsur-unsur berita (ADIKSIMBA) berdasarkan berita yang disimak.",
+  "Menganalisis informasi penting yang terdapat dalam teks berita."
+];
 const steps = [
   { title: "Halo, Detektif Berita!", text: "Selamat datang di News House.\nHari ini kamu akan menjalankan sebuah misi: membongkar sebuah teks berita dan menemukan informasi penting di dalamnya." },
-  { title: "Target Kamu", text: "Dalam misi ini, kamu diharapkan mampu:" },
+  { title: "Target Kamu", text: "Setelah mengikuti pembelajaran, peserta didik diharapkan mampu" },
   { title: "Pesan dari Redaksi", text: "Sebuah berita telah masuk ke News House.\nRedaksi membutuhkan bantuanmu untuk menemukan:" }
 ];
 const newsElements = ["Siapa", "Apa", "Kapan", "Di Mana", "Mengapa", "Bagaimana"];

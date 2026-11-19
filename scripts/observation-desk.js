@@ -1,7 +1,8 @@
-export function initObservationDesk({ onOpenExample, onOpenDissection, onOpenExampleDissection }) {
+export function initObservationDesk({ onOpenExample, onOpenMaterial, onOpenDissection, onOpenExampleDissection }) {
   const video = document.querySelector("#observation-video");
   const exampleVideo = document.querySelector("#observation-example-video");
   const exampleButton = document.querySelector("#observation-example-button");
+  const materialButton = document.querySelector("#observation-material-button");
   const dissectionButton = document.querySelector("#observation-dissection-button");
   const exampleDissectionButton = document.querySelector("#observation-example-dissection-button");
 
@@ -10,6 +11,7 @@ export function initObservationDesk({ onOpenExample, onOpenDissection, onOpenExa
   function resetExample() { pause(); exampleVideo.currentTime = 0; }
 
   exampleButton.addEventListener("click", () => { pause(); onOpenExample(); });
+  materialButton.addEventListener("click", () => { pause(); onOpenMaterial(); });
   dissectionButton.addEventListener("click", () => { pause(); onOpenDissection(); });
   exampleDissectionButton.addEventListener("click", () => { pause(); onOpenExampleDissection(); });
   return { pause, reset, resetExample };

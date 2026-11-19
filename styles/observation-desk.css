@@ -14,7 +14,7 @@
 .observation-desk__actions { position: absolute; z-index: 5; bottom: 2%; left: 50%; display: flex; justify-content: center; align-items: center; gap: 2%; width: 50%; height: 12%; transform: translateX(-50%); }
 .observation-desk__actions--single { gap: 0; }
 .observation-desk__button { display: grid; place-items: center; height: 100%; padding: 0; border: 0; background: transparent; cursor: pointer; transition: transform .15s, filter .18s; }
-.observation-desk__button--example, .observation-desk__button--dissection { width: 43%; }
+.observation-desk__button--example, .observation-desk__button--material, .observation-desk__button--dissection { width: 43%; }
 .observation-desk__button img { display: block; width: 100%; height: 100%; object-fit: contain; pointer-events: none; filter: drop-shadow(0 .5vw .45vw #02081788); }
 .observation-desk__button:hover { filter: brightness(1.1) drop-shadow(0 0 .65vw #5eeaff); transform: translateY(-5%) scale(1.025); }
 .observation-desk__button:active { transform: translateY(3%) scale(.98); }

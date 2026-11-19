@@ -1,7 +1,7 @@
 import { initLanding } from "./landing.js";
-import { initOnboarding } from "./onboarding.js?v=20261102-1";
+import { initOnboarding } from "./onboarding.js?v=20261119-1";
 import { initReadingDesk } from "./reading-desk.js?v=20261101-2";
-import { initObservationDesk } from "./observation-desk.js?v=20261105-2";
+import { initObservationDesk } from "./observation-desk.js?v=20261119-1";
 import { initListeningDesk } from "./listening-desk.js?v=20261116-1";
 import { initListeningDissection } from "./listening-dissection.js?v=20261105-1";
 import { initAudioManager } from "./components/audio-manager.js?v=20261102-1";
@@ -15,7 +15,7 @@ const pageMarkup = await Promise.all([
   fetch("pages/onboarding.html").then((response) => response.text()),
   fetch("pages/editorial-room.html").then((response) => response.text()),
   fetch("pages/reading-desk.html").then((response) => response.text()),
-  fetch("pages/observation-desk.html?v=20261105-5").then((response) => response.text()),
+  fetch("pages/observation-desk.html?v=20261119-1").then((response) => response.text()),
   fetch("pages/listening-desk.html?v=20261105-1").then((response) => response.text()),
   fetch("pages/dissection-room.html").then((response) => response.text()),
   fetch("pages/observation-dissection.html?v=20261105-3").then((response) => response.text()),
@@ -70,6 +70,7 @@ const readingDesk = initReadingDesk({
 });
 const observationDesk = initObservationDesk({
   onOpenExample: () => changeScene(() => showDeskPage("observation-example")),
+  onOpenMaterial: () => changeScene(() => showDeskPage("observation-desk")),
   onOpenDissection: () => changeScene(() => showObservationDissection("observation-desk")),
   onOpenExampleDissection: () => changeScene(() => showObservationDissection("observation-example"))
 });

@@ -1,9 +1,9 @@
-.listening-desk__stage { background: url("../assets/images/listening-desk/background.png") center / cover no-repeat; }
+.listening-desk__stage { background: url("../assets/images/listening-desk/background.png?v=20261119-1") center / cover no-repeat; }
 .listening-desk__stage::after, .listening-desk__stage > .desk-page__identity { display: none; }
-.listening-desk__controls { position: absolute; z-index: 5; inset: 0; }
-.listening-desk__audio-button { position: absolute; top: 49%; width: 13%; height: 20%; padding: 0; border: 0; border-radius: 2vw; background: transparent; cursor: pointer; transition: filter .17s ease, transform .14s ease; }
-.listening-desk__audio-button--material { left: 20.8%; }
-.listening-desk__audio-button--example { right: 20.2%; }
+.listening-desk__controls { position: absolute; z-index: 5; inset: 0; pointer-events: none; }
+.listening-desk__audio-button { position: absolute; top: 49%; width: 13%; height: 20%; padding: 0; border: 0; border-radius: 2vw; background: transparent; cursor: pointer; pointer-events: auto; transition: filter .17s ease, transform .14s ease; }
+.listening-desk__audio-button--material { right: 20.2%; }
+.listening-desk__audio-button--example { left: 20.8%; }
 .listening-desk__audio-button:hover { filter: brightness(1.12) drop-shadow(0 0 .8vw #ffe246); transform: translateY(-2%) scale(1.035); }
 .listening-desk__audio-button:active { transform: translateY(2%) scale(.98); }
 .listening-desk__audio-button:focus-visible { outline: .38vw solid #fff; outline-offset: .15vw; }
@@ -17,6 +17,6 @@
 .listening-desk__dissection:active { transform: translate(-50%, 2%) scale(.98); }
 .listening-desk__dissection:focus-visible { border-radius: 999px; outline: .38vw solid #fff; outline-offset: .15vw; }
 .listening-desk__source { position: absolute; z-index: 6; top: 70.5%; width: 26%; }
-.listening-desk__source--material { left: 14.2%; }
-.listening-desk__source--example { right: 13.8%; }
+.listening-desk__source--material { right: 13.8%; }
+.listening-desk__source--example { left: 14.2%; }
 @media (prefers-reduced-motion: reduce) { .listening-desk__audio-button, .listening-desk__state-icon, .listening-desk__dissection { transition: none; } }
