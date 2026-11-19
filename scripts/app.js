@@ -11,7 +11,7 @@ import { createTypewriter } from "./components/typewriter.js";
 
 const app = document.querySelector("#app");
 const pageMarkup = await Promise.all([
-  fetch("pages/landing.html").then((response) => response.text()),
+  fetch("pages/landing.html?v=20261119-1").then((response) => response.text()),
   fetch("pages/onboarding.html").then((response) => response.text()),
   fetch("pages/editorial-room.html").then((response) => response.text()),
   fetch("pages/reading-desk.html").then((response) => response.text()),
